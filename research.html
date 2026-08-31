@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — Lambert Aditama Soehardjianto</title>
+<meta name="description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<noscript><style>[data-reveal]{opacity:1;transform:none;}</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-mark" href="index.html">Lambert A.S.</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ol class="site-nav__list">
+        <li><a href="index.html" class="site-nav__link">Home</a></li>
+        <li><a href="work.html" class="site-nav__link">Work</a></li>
+        <li><a href="research.html" class="site-nav__link" aria-current="page">Research</a></li>
+        <li><a href="about.html" class="site-nav__link">About</a></li>
+      </ol>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+      <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="8" cy="8" r="3.4"/>
+        <path d="M8 0.8v2M8 13.2v2M15.2 8h-2M2.8 8h-2M13.1 2.9l-1.4 1.4M4.3 11.7l-1.4 1.4M13.1 13.1l-1.4-1.4M4.3 4.3L2.9 2.9"/>
+      </svg>
+      <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M13.8 9.7A6 6 0 1 1 6.3 2.2a5 5 0 0 0 7.5 7.5Z"/>
+      </svg>
+      <span data-theme-label>Light</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container page-head">
+    <div class="section-head" data-num="after">
+      <span class="section-head__num" aria-hidden="true">02</span>
+      <h1 class="page-heading">Research</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section__body" style="padding-top: var(--space-6);">
+
+      <article class="entry" id="stroke-smote">
+        <h2 class="entry__title">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
+        <p class="entry__meta">First author &middot; ICISS 2026, Bandung &middot; presented August 2026, publication forthcoming</p>
+        <div class="prose">
+          <p>Stroke prevalence in this dataset was 4.87% across 5,110 records. At that ratio a model that predicts &ldquo;no stroke&rdquo; for every patient scores about 95% accuracy and is completely useless, which is the practical problem the paper addresses.</p>
+          <p>I compared three resampling regimes across logistic regression, SVM with an RBF kernel, and XGBoost, holding preprocessing and tuning fixed so the comparison isolated the resampling choice. Ranked on PR-AUC and recall rather than accuracy, then checked the result held up under cross-validation, SHAP, and calibration curves.</p>
+          <p>The calibration step mattered. Resampling changes the base rate the model sees, so predicted probabilities stop meaning what they appear to mean unless you check.</p>
+        </div>
+      </article>
+
+      <article class="entry" id="jellyfish-feature-selection">
+        <h2 class="entry__title">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
+        <p class="entry__meta">Second author &middot; IEEE iCAST 2025 &middot; DOI: 10.1109/iCAST68191.2025.11300257</p>
+        <div class="prose">
+          <p>I implemented the algorithm from scratch and benchmarked it as a feature selector against a no-selection baseline across five classifiers on 918 records.</p>
+          <p>Implementing it rather than importing it was the point. Metaheuristics are easy to describe and easy to get subtly wrong, and writing it out surfaced parameter choices the original description left implicit.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <ul class="site-footer__links contact-list">
+      <li><a class="ink-link" href="mailto:lambertaditama@gmail.com">lambertaditama@gmail.com</a></li>
+      <li><a class="ink-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener">LinkedIn<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+      <li><a class="ink-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener">ResearchGate<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+    </ul>
+    <p class="site-footer__note">Jakarta, Indonesia</p>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/motion.js"></script>
+</body>
+</html>

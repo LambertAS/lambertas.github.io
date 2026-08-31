@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Lambert Aditama Soehardjianto</title>
+<meta name="description" content="How Lambert Aditama Soehardjianto works, plus tools, education, and background.">
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<noscript><style>[data-reveal]{opacity:1;transform:none;}</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-mark" href="index.html">Lambert A.S.</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ol class="site-nav__list">
+        <li><a href="index.html" class="site-nav__link">Home</a></li>
+        <li><a href="work.html" class="site-nav__link">Work</a></li>
+        <li><a href="research.html" class="site-nav__link">Research</a></li>
+        <li><a href="about.html" class="site-nav__link" aria-current="page">About</a></li>
+      </ol>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+      <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="8" cy="8" r="3.4"/>
+        <path d="M8 0.8v2M8 13.2v2M15.2 8h-2M2.8 8h-2M13.1 2.9l-1.4 1.4M4.3 11.7l-1.4 1.4M13.1 13.1l-1.4-1.4M4.3 4.3L2.9 2.9"/>
+      </svg>
+      <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M13.8 9.7A6 6 0 1 1 6.3 2.2a5 5 0 0 0 7.5 7.5Z"/>
+      </svg>
+      <span data-theme-label>Light</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container page-head">
+    <h1 class="page-heading">About</h1>
+  </div>
+
+  <section class="section" id="how-i-work" aria-labelledby="how-i-work-heading">
+    <div class="container">
+      <div class="section-head" data-num="after">
+        <span class="section-head__num" aria-hidden="true">03</span>
+        <h2 id="how-i-work-heading" class="section__heading">How I work</h2>
+      </div>
+      <div class="section__body prose">
+        <div class="principle">
+          <span class="principle__lead">I would rather know a number is wrong than have it look right.</span>
+          <p>Most of the time spent on the pulse survey pipeline went into the mapping and validation steps, not the analysis. Analysis on data you have not interrogated produces confident nonsense.</p>
+        </div>
+        <div class="principle">
+          <span class="principle__lead">The question people ask is usually not the question they need answered.</span>
+          <p>Requirements work taught me this more directly than coursework did. Someone asks for a report. What they need is to make a decision, and the report they described would not have supported it.</p>
+        </div>
+        <div class="principle">
+          <span class="principle__lead">Reproducible beats clever.</span>
+          <p>A pipeline anyone can rerun next year is worth more than a smart one-off analysis that only exists in my notebook.</p>
+        </div>
+        <div class="principle">
+          <span class="principle__lead">Statistics is mostly about what you are allowed to conclude.</span>
+          <p>Half my degree was statistics, and the part that transferred most was not the methods. It was the habit of asking what would have to be true for this result to mean what I want it to mean.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tools" aria-labelledby="tools-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num" aria-hidden="true">04</span>
+        <h2 id="tools-heading" class="section__heading">Tools</h2>
+      </div>
+      <div class="section__body">
+        <div class="content-group content-group--tight">
+          <p class="group-label">Analytical</p>
+          <dl class="tools-list">
+            <div class="tools-list__row" data-reveal style="--i:0">
+              <span class="tools-list__num">01</span>
+              <div class="tools-list__group">
+                <dt><svg class="tools-list__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3 1 8l4 5M11 3l4 5-4 5"/></svg>Languages</dt>
+                <dd>Python (pandas, NumPy, scikit-learn, statsmodels), R (tidyverse, ggplot2), SQL</dd>
+              </div>
+            </div>
+            <div class="tools-list__row" data-reveal style="--i:1">
+              <span class="tools-list__num">02</span>
+              <div class="tools-list__group">
+                <dt><svg class="tools-list__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2.5 13.5V8M8 13.5V3.5M13.5 13.5V9.5"/></svg>Business intelligence</dt>
+                <dd>Power BI, automated reporting with python-pptx, matplotlib, ggplot2, Excel</dd>
+              </div>
+            </div>
+            <div class="tools-list__row" data-reveal style="--i:2">
+              <span class="tools-list__num">03</span>
+              <div class="tools-list__group">
+                <dt><svg class="tools-list__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="3" cy="12.5" r="1"/><circle cx="6.5" cy="7.5" r="1"/><circle cx="10" cy="9.5" r="1"/><circle cx="13.5" cy="3.5" r="1"/></svg>Statistics</dt>
+                <dd>Regression, classification, imbalanced-data methods, hypothesis testing, sampling design, time series</dd>
+              </div>
+            </div>
+          </dl>
+        </div>
+
+        <div class="content-group content-group--tight">
+          <p class="group-label">Professional practice</p>
+          <dl class="tools-list">
+            <div class="tools-list__row" data-reveal style="--i:3">
+              <span class="tools-list__num">04</span>
+              <div class="tools-list__group">
+                <dt><svg class="tools-list__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 2.5h8v11H4z M6 5.5h4M6 8h4M6 10.5h2.5"/></svg>Business analysis</dt>
+                <dd>Requirements gathering, business requirement documents, functional specifications, cost-benefit analysis, user acceptance testing, wireframing in Figma</dd>
+              </div>
+            </div>
+            <div class="tools-list__row" data-reveal style="--i:4">
+              <span class="tools-list__num">05</span>
+              <div class="tools-list__group">
+                <dt><svg class="tools-list__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="6" r="3.5"/><path d="M6 9l-1.5 5L8 12l3.5 2L10 9"/></svg>Certification</dt>
+                <dd>HackerRank, 2026: SQL (Advanced), R (Intermediate), Problem Solving (Intermediate), Software Engineer (role certification)</dd>
+              </div>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="education" aria-labelledby="education-heading">
+    <div class="container">
+      <div class="section-head" data-num="after">
+        <span class="section-head__num" aria-hidden="true">05</span>
+        <h2 id="education-heading" class="section__heading">Education</h2>
+      </div>
+      <div class="section__body">
+        <article class="entry">
+          <h3 class="entry__title">BINUS University, Jakarta</h3>
+          <p class="entry__meta">BSc Computer Science and Statistics, August 2022 to August 2026 &middot; GPA 3.72 / 4.00</p>
+          <div class="prose">
+            <p>Coursework: Machine Learning, Deep Learning, Data Mining and Visualization, Multivariate Statistics, Regression Analysis, Categorical Data Analysis, Time Series Analysis, Database Technology, Software Engineering.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="beyond" aria-labelledby="beyond-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num" aria-hidden="true">06</span>
+        <h2 id="beyond-heading" class="section__heading">Beyond the work</h2>
+      </div>
+      <div class="section__body">
+        <article class="entry">
+          <h3 class="entry__title">HIMSTAT BINUS</h3>
+          <p class="entry__meta">Project Manager, Statistics Competition Delegation &middot; February 2023 to February 2025</p>
+          <div class="prose">
+            <p>Ran planning, scheduling, judge coordination and the post-event report for a statistics competition with more than 50 participants.</p>
+          </div>
+        </article>
+        <article class="entry">
+          <h3 class="entry__title">Teach for Indonesia, BINUS</h3>
+          <p class="entry__meta">Education Volunteer &middot; August to September 2023</p>
+          <div class="prose">
+            <p>Delivered 10 structured mathematics sessions for secondary students, designing the materials and tracking understanding with exit tickets.</p>
+          </div>
+        </article>
+        <article class="entry">
+          <h3 class="entry__title">SASC Mentoring Scholarship</h3>
+          <p class="entry__meta">Mentor &middot; August 2025 to present</p>
+        </article>
+        <div class="prose">
+          <p><strong>Languages</strong> Indonesian (native), English (fluent), Mandarin (conversational)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="section-head" data-num="after">
+        <span class="section-head__num" aria-hidden="true">07</span>
+        <h2 id="contact-heading" class="section__heading">Contact</h2>
+      </div>
+      <div class="section__body">
+        <ul class="contact-list">
+          <li><a class="ink-link" href="mailto:lambertaditama@gmail.com">lambertaditama@gmail.com</a></li>
+          <li><a class="ink-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener">LinkedIn: linkedin.com/in/lambert-aditama-soehardjianto<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+          <li><a class="ink-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener">ResearchGate: researchgate.net/profile/Lambert-Aditama-Soehardjianto<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <ul class="site-footer__links contact-list">
+      <li><a class="ink-link" href="mailto:lambertaditama@gmail.com">lambertaditama@gmail.com</a></li>
+      <li><a class="ink-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener">LinkedIn<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+      <li><a class="ink-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener">ResearchGate<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+    </ul>
+    <p class="site-footer__note">Jakarta, Indonesia</p>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/motion.js"></script>
+</body>
+</html>
