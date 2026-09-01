@@ -296,13 +296,13 @@ main { display: block; }
    Hero (Home)
    ========================================================================== */
 .hero {
-  padding: var(--space-9) 0 var(--space-7);
+  padding: var(--space-8) 0 var(--space-7);
 }
 .hero__name {
   font-size: clamp(2.25rem, 6vw, 4rem);
   line-height: 1.02;
   letter-spacing: -0.01em;
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-8);
   max-width: 18ch;
 }
 .hero__role {
@@ -370,19 +370,20 @@ main { display: block; }
   border-top: none;
 }
 .page-head {
-  padding: var(--space-9) 0 0;
+  padding: var(--space-8) 0 0;
 }
 .page-head__rule {
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
   border-top: 1px dashed var(--color-border);
 }
 /* Work/Research have no .section wrapper around their content frame (About's
-   sections each carry their own top padding for free) — this is the only
-   gap between the rule and the first content; .page-head itself carries no
-   bottom padding, so the title keeps more space above it than below,
-   matching how the hero name behaves. */
+   sections each carry their own top padding for free), so this is the only
+   gap between the rule and the first content. At desktop, rule-margin (16px)
+   + this (48px) = 64px below the title, matching .page-head's own 64px
+   above it exactly -- equal on both sides, per direct feedback that "more
+   above than below" didn't read as natural here. */
 .page-head + .frame {
-  padding-top: var(--space-6);
+  padding-top: var(--space-7);
 }
 .section__heading {
   font-size: 1.75rem;
@@ -672,7 +673,7 @@ main { display: block; }
   .container, .frame, .site-footer__inner { padding: 0 var(--space-8); }
 
   .site-nav { order: 2; width: auto; overflow: visible; flex: 1; }
-  .site-nav__list { justify-content: center; gap: var(--space-8); }
+  .site-nav__list { justify-content: space-between; }
   .theme-toggle { order: 3; }
 
   .index-list__link { grid-template-columns: 3rem 1fr auto; }
