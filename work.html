@@ -58,67 +58,94 @@
 </header>
 
 <main id="main">
-  <div class="container page-head">
+  <div class="frame page-head">
     <h1 class="page-heading">Selected work</h1>
   </div>
 
-  <div class="container">
-    <div class="section__body">
+  <div class="frame">
+    <div class="content-group">
+      <div class="rail-grid">
 
-      <div class="content-group">
-        <article class="entry" id="pulse-survey-pipeline">
-          <h2 class="entry__title" style="view-transition-name: entry-pulse-survey-pipeline">Employee pulse survey analytics pipeline</h2>
-          <p class="entry__meta">PT Lion Super Indo, 2026. Python, pandas, python-pptx</p>
-          <div class="prose">
-            <p>The annual employee pulse survey covered roughly 9,000 responses across the organisation. The reporting was assembled by hand each year, which limited how much could be reported and how fast.</p>
-            <p>I built the pipeline that replaced it. Raw export goes in, mapped to org units, stratified sampling applied, and a formatted PowerPoint report comes out for each unit.</p>
-            <p>The org-unit mapping was the hard part. Reporting structures do not match the shape of the data export, and getting responses attributed to the right unit without breaking respondent anonymity took more iteration than the analysis did.</p>
-            <p>Stratified rather than simple sampling because unit sizes vary by an order of magnitude, and a naive sample would let the largest units dominate every reported figure.</p>
+        <article class="entry entry--railed" id="pulse-survey-pipeline">
+          <div class="rail">
+            <p>2026</p>
+            <ul class="rail-tags"><li>Python</li><li>pandas</li><li>python-pptx</li></ul>
+          </div>
+          <div class="entry__content">
+            <h2 class="entry__title" style="view-transition-name: entry-pulse-survey-pipeline">Employee pulse survey analytics pipeline</h2>
+            <div class="prose">
+              <p>The annual employee pulse survey covered roughly 9,000 responses across the organisation. The reporting was assembled by hand each year, which limited how much could be reported and how fast.</p>
+              <p>I built the pipeline that replaced it. Raw export goes in, mapped to org units, stratified sampling applied, and a formatted PowerPoint report comes out for each unit.</p>
+              <p>The org-unit mapping was the hard part. Reporting structures do not match the shape of the data export, and getting responses attributed to the right unit without breaking respondent anonymity took more iteration than the analysis did.</p>
+              <p>Stratified rather than simple sampling because unit sizes vary by an order of magnitude, and a naive sample would let the largest units dominate every reported figure.</p>
+            </div>
           </div>
         </article>
 
-        <article class="entry" id="sla-dashboard">
-          <h2 class="entry__title" style="view-transition-name: entry-sla-dashboard">HR service ticket SLA dashboard</h2>
-          <p class="entry__meta">PT Lion Super Indo, 2026. Power BI</p>
-          <div class="prose">
-            <p>The report already existed as an Excel file. It showed one period, it could not be filtered, and updating it meant someone opening the file and editing it again by hand every cycle.</p>
-            <p>I rebuilt it in Power BI. I reshaped the source data, then built the visualisations and interactive filters, choosing each chart type to fit what the measure actually was rather than applying one format across everything.</p>
-            <p>Cleaning was the hard part, and it came before any of the visual work. Not every ticket in the export was in a finished state. Some were still open and some had not been accepted yet, and those cannot be counted alongside closed tickets without distorting every SLA figure on the page. Getting that state logic right determined whether anything downstream meant what it appeared to mean.</p>
-            <p>I presented the finished dashboard to my Department Head and the General Managers, walking through how it worked and why each chart was built the way it was.</p>
+        <article class="entry entry--railed" id="sla-dashboard">
+          <div class="rail">
+            <p>2026</p>
+            <ul class="rail-tags"><li>Power BI</li></ul>
+          </div>
+          <div class="entry__content">
+            <h2 class="entry__title" style="view-transition-name: entry-sla-dashboard">HR service ticket SLA dashboard</h2>
+            <div class="prose">
+              <p>The report already existed as an Excel file. It showed one period, it could not be filtered, and updating it meant someone opening the file and editing it again by hand every cycle.</p>
+              <p>I rebuilt it in Power BI. I reshaped the source data, then built the visualisations and interactive filters, choosing each chart type to fit what the measure actually was rather than applying one format across everything.</p>
+              <p>Cleaning was the hard part, and it came before any of the visual work. Not every ticket in the export was in a finished state. Some were still open and some had not been accepted yet, and those cannot be counted alongside closed tickets without distorting every SLA figure on the page. Getting that state logic right determined whether anything downstream meant what it appeared to mean.</p>
+              <p>I presented the finished dashboard to my Department Head and the General Managers, walking through how it worked and why each chart was built the way it was.</p>
+            </div>
           </div>
         </article>
 
-        <article class="entry" id="pms-prototypes">
-          <h2 class="entry__title" style="view-transition-name: entry-pms-prototypes">Performance Management System dashboard prototypes</h2>
-          <p class="entry__meta">PT Lion Super Indo, 2026. Figma</p>
-          <div class="prose">
-            <p>I prototyped the dashboard for the Performance Management System revamp across three access levels: Associate, People Leader, and the Admin panel. Each role sees a different slice of the system, so each needed its own layout rather than one screen with sections hidden depending on who is looking.</p>
-            <p>Against the previous version, what changed was the visualisation. Cleaner charts, KPI cards chosen because they were relevant rather than because the data happened to be available, and a more compact layout so a leader can read their view without scrolling past everything else first.</p>
-            <p>I also supported my team on the wider functionality revamp of the Performance Management System. The dashboard was my part of it.</p>
+        <article class="entry entry--railed" id="pms-prototypes">
+          <div class="rail">
+            <p>2026</p>
+            <ul class="rail-tags"><li>Figma</li></ul>
+          </div>
+          <div class="entry__content">
+            <h2 class="entry__title" style="view-transition-name: entry-pms-prototypes">Performance Management System dashboard prototypes</h2>
+            <div class="prose">
+              <p>I prototyped the dashboard for the Performance Management System revamp across three access levels: Associate, People Leader, and the Admin panel. Each role sees a different slice of the system, so each needed its own layout rather than one screen with sections hidden depending on who is looking.</p>
+              <p>Against the previous version, what changed was the visualisation. Cleaner charts, KPI cards chosen because they were relevant rather than because the data happened to be available, and a more compact layout so a leader can read their view without scrolling past everything else first.</p>
+              <p>I also supported my team on the wider functionality revamp of the Performance Management System. The dashboard was my part of it.</p>
+            </div>
           </div>
         </article>
+
       </div>
+    </div>
 
-      <div class="content-group">
-        <article class="entry" id="hr-system-requirements">
-          <h2 class="entry__title" style="view-transition-name: entry-hr-system-requirements">Requirements work on HR system upgrades</h2>
-          <p class="entry__meta">PT Lion Super Indo, 2026</p>
-          <div class="prose">
-            <p>I wrote three Business Requirement Documents with supporting cost-benefit analyses for HR system upgrades. All three were approved and went into build.</p>
-            <p>I also ran the weekly requirements sessions between HR and IT. These two groups describe the same problem in incompatible vocabulary, and much of the value in those meetings came from noticing when agreement was only apparent. Translating what HR described into functional specifications IT could estimate against was the actual deliverable, not the meeting.</p>
+    <div class="content-group">
+      <div class="rail-grid">
+
+        <article class="entry entry--railed" id="hr-system-requirements">
+          <div class="rail">
+            <p>2026</p>
+          </div>
+          <div class="entry__content">
+            <h2 class="entry__title" style="view-transition-name: entry-hr-system-requirements">Requirements work on HR system upgrades</h2>
+            <div class="prose">
+              <p>I wrote three Business Requirement Documents with supporting cost-benefit analyses for HR system upgrades. All three were approved and went into build.</p>
+              <p>I also ran the weekly requirements sessions between HR and IT. These two groups describe the same problem in incompatible vocabulary, and much of the value in those meetings came from noticing when agreement was only apparent. Translating what HR described into functional specifications IT could estimate against was the actual deliverable, not the meeting.</p>
+            </div>
           </div>
         </article>
 
-        <article class="entry" id="uat-performance-appraisal">
-          <h2 class="entry__title" style="view-transition-name: entry-uat-performance-appraisal">User acceptance testing, performance appraisal module</h2>
-          <p class="entry__meta">PT Lion Super Indo, 2026</p>
-          <div class="prose">
-            <p>I ran UAT across 15 scenarios, logged 20 defects in an issue log, and retested each one to closure before launch. I wrote the end-user manual that shipped with it.</p>
-            <p>The defects were functional. Buttons that did nothing when clicked. Filters that returned the wrong set of records. Fields with no validation at all, and fields accepting special characters they should have rejected. Several sat in the record operations themselves, where adding, editing or deleting did not behave the way the specification said it would.</p>
+        <article class="entry entry--railed" id="uat-performance-appraisal">
+          <div class="rail">
+            <p>2026</p>
+          </div>
+          <div class="entry__content">
+            <h2 class="entry__title" style="view-transition-name: entry-uat-performance-appraisal">User acceptance testing, performance appraisal module</h2>
+            <div class="prose">
+              <p>I ran UAT across 15 scenarios, logged 20 defects in an issue log, and retested each one to closure before launch. I wrote the end-user manual that shipped with it.</p>
+              <p>The defects were functional. Buttons that did nothing when clicked. Filters that returned the wrong set of records. Fields with no validation at all, and fields accepting special characters they should have rejected. Several sat in the record operations themselves, where adding, editing or deleting did not behave the way the specification said it would.</p>
+            </div>
           </div>
         </article>
+
       </div>
-
     </div>
   </div>
 </main>
