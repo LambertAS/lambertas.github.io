@@ -158,7 +158,7 @@ a:focus-visible, button:focus-visible {
   z-index: 100;
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
-  transition: padding var(--duration-fast) var(--ease), background var(--duration-base) var(--ease);
+  transition: background var(--duration-base) var(--ease);
 }
 .site-header__inner {
   max-width: var(--site-max);
