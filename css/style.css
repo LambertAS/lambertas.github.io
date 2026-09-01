@@ -370,17 +370,19 @@ main { display: block; }
   border-top: none;
 }
 .page-head {
-  padding: var(--space-8) 0 var(--space-8);
+  padding: var(--space-9) 0 0;
 }
 .page-head__rule {
-  margin-top: var(--space-6);
+  margin-top: var(--space-5);
   border-top: 1px dashed var(--color-border);
 }
 /* Work/Research have no .section wrapper around their content frame (About's
-   sections each carry their own top padding for free) — without this, they
-   rely solely on .page-head's bottom padding and end up visibly tighter. */
+   sections each carry their own top padding for free) — this is the only
+   gap between the rule and the first content; .page-head itself carries no
+   bottom padding, so the title keeps more space above it than below,
+   matching how the hero name behaves. */
 .page-head + .frame {
-  padding-top: var(--space-8);
+  padding-top: var(--space-6);
 }
 .section__heading {
   font-size: 1.75rem;
@@ -573,7 +575,7 @@ main { display: block; }
   border-top: 1px solid var(--color-border);
   background: var(--color-surface);
   margin-top: var(--space-7);
-  padding: var(--space-6) 0;
+  padding: var(--space-5) 0;
 }
 .site-footer__inner {
   max-width: var(--content-max);
@@ -581,30 +583,31 @@ main { display: block; }
   padding: 0 var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
   text-align: left;
 }
 .site-footer__mark {
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-text-muted);
 }
 .site-footer__note {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: var(--color-text-muted);
-  margin-top: var(--space-1);
+  margin-top: 2px;
 }
 .site-footer__links {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
   font-family: var(--font-mono);
 }
 .site-footer__links.contact-list a {
-  font-size: 0.9375rem;
+  font-size: 0.75rem;
 }
 .site-footer__links.contact-list li {
   margin-bottom: 0;
@@ -615,12 +618,7 @@ main { display: block; }
     flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
-    gap: var(--space-8);
-  }
-  .site-footer__links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-5);
+    gap: var(--space-6);
   }
 }
 
