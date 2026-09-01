@@ -306,7 +306,7 @@ main { display: block; }
   font-size: clamp(2.25rem, 6vw, 4rem);
   line-height: 1.02;
   letter-spacing: -0.01em;
-  margin: 0 0 var(--space-8);
+  margin: 0 0 var(--space-6);
   max-width: 18ch;
 }
 .hero__role {
