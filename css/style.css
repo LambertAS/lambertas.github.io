@@ -296,7 +296,11 @@ main { display: block; }
    Hero (Home)
    ========================================================================== */
 .hero {
-  padding: var(--space-8) 0 var(--space-7);
+  /* Top padding is deliberately larger than the name's own margin-bottom
+     below (which is exactly --space-8) -- a text line carries its own
+     invisible leading/descender space that makes numerically-equal gaps
+     read as unequal, so this is an optical correction, not a typo. */
+  padding: calc(var(--space-8) + var(--space-2)) 0 var(--space-7);
 }
 .hero__name {
   font-size: clamp(2.25rem, 6vw, 4rem);
@@ -370,7 +374,10 @@ main { display: block; }
   border-top: none;
 }
 .page-head {
-  padding: var(--space-8) 0 0;
+  /* Same optical correction as .hero: top slightly larger than the rule
+     margin + content padding below (16px + 48px = 64px at desktop), so it
+     reads as equal rather than measuring equal. */
+  padding: calc(var(--space-8) + var(--space-2)) 0 0;
 }
 .page-head__rule {
   margin-top: var(--space-4);
@@ -673,7 +680,7 @@ main { display: block; }
   .container, .frame, .site-footer__inner { padding: 0 var(--space-8); }
 
   .site-nav { order: 2; width: auto; overflow: visible; flex: 1; }
-  .site-nav__list { justify-content: space-between; }
+  .site-nav__list { justify-content: center; gap: var(--space-8); }
   .theme-toggle { order: 3; }
 
   .index-list__link { grid-template-columns: 3rem 1fr auto; }
