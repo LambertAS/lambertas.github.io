@@ -376,6 +376,12 @@ main { display: block; }
   margin-top: var(--space-6);
   border-top: 1px dashed var(--color-border);
 }
+/* Work/Research have no .section wrapper around their content frame (About's
+   sections each carry their own top padding for free) — without this, they
+   rely solely on .page-head's bottom padding and end up visibly tighter. */
+.page-head + .frame {
+  padding-top: var(--space-8);
+}
 .section__heading {
   font-size: 1.75rem;
   margin: 0 0 var(--space-6);
