@@ -18,13 +18,13 @@
   --space-10: clamp(72px, 52px + 5.25vw, 128px);
 
   --measure: 70ch;
-  --site-max: 1240px;
-  --content-max: 900px;
+  --content-max: 760px;
   --header-height: 96px;
 
   --duration-instant: 120ms;
   --duration-fast: 180ms;
   --duration-base: 220ms;
+  --duration-reveal: 560ms;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* light theme (default): white, with beige used deliberately for surfaces */
@@ -63,6 +63,20 @@
 }
 ::view-transition-group(root) { animation-duration: var(--duration-fast); }
 ::view-transition-group(masthead) { animation-duration: var(--duration-base); }
+
+/* Theme-toggle circular reveal (same-document, script-triggered; see js/theme.js).
+   Scoped to html.theme-transition so it never applies to page-navigation
+   view transitions, which use the default cross-fade above. */
+html.theme-transition::view-transition-old(root) {
+  animation: none;
+}
+html.theme-transition::view-transition-new(root) {
+  animation: theme-reveal var(--duration-reveal) var(--ease);
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0% at var(--reveal-x, 50%) var(--reveal-y, 50%)); }
+  to { clip-path: circle(150% at var(--reveal-x, 50%) var(--reveal-y, 50%)); }
+}
 
 /* ==========================================================================
    Reset
@@ -161,7 +175,7 @@ a:focus-visible, button:focus-visible {
   transition: background var(--duration-base) var(--ease);
 }
 .site-header__inner {
-  max-width: var(--site-max);
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: var(--space-4) var(--space-4);
   display: flex;
@@ -191,13 +205,15 @@ a:focus-visible, button:focus-visible {
   gap: var(--space-5);
 }
 .site-nav__link {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--color-text-muted);
   white-space: nowrap;
-  padding: var(--space-1) 0;
+  padding: var(--space-2) 0;
   border-bottom: 2px solid transparent;
   transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease);
 }
@@ -219,7 +235,7 @@ a:focus-visible, button:focus-visible {
   color: var(--color-text-muted);
   border: 1px solid var(--color-border);
   border-radius: 999px;
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease);
 }
 .theme-toggle:hover { color: var(--color-text); border-color: var(--color-text-muted); }
@@ -267,7 +283,7 @@ main { display: block; }
 }
 
 /* ==========================================================================
-   Section heading: large numeral + heading, alternating sides
+   Section / page headings
    ========================================================================== */
 .section {
   padding: var(--space-8) 0;
@@ -278,36 +294,16 @@ main { display: block; }
   border-top: none;
 }
 .page-head {
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-5);
-}
-.section-head {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-6);
-}
-.section-head[data-num="after"] {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-.section-head__num {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: clamp(2.25rem, 8vw, 5.5rem);
-  line-height: 0.85;
-  color: var(--color-accent);
+  padding: var(--space-8) 0 var(--space-6);
 }
 .section__heading {
   font-size: 1.75rem;
-  margin: 0;
+  margin: 0 0 var(--space-6);
 }
 .page-heading {
   font-size: clamp(2rem, 5vw, 3rem);
   margin: 0;
 }
-.section__body { max-width: var(--measure); }
 
 /* ==========================================================================
    Index lists (Home -> Work / Research teasers)
@@ -322,10 +318,7 @@ main { display: block; }
   align-items: baseline;
   gap: var(--space-4);
   padding: var(--space-5) 0;
-  transition: gap var(--duration-instant) var(--ease);
 }
-.index-list__link:hover,
-.index-list__link:focus-visible { gap: var(--space-5); }
 .index-list__link:hover .index-list__title,
 .index-list__link:focus-visible .index-list__title { color: var(--color-accent); }
 .index-list__num {
@@ -334,6 +327,7 @@ main { display: block; }
   color: var(--color-text-muted);
 }
 .index-list__title {
+  display: inline-block;
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 600;
@@ -351,19 +345,16 @@ main { display: block; }
   align-self: center;
   width: 18px;
   height: 12px;
+  transition: transform var(--duration-instant) var(--ease);
+}
+.index-list__link:hover .index-list__arrow,
+.index-list__link:focus-visible .index-list__arrow {
+  transform: translateX(4px);
 }
 
 /* ==========================================================================
    Entries (Work / Research / Education / Beyond)
    ========================================================================== */
-.group-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin: 0 0 var(--space-4);
-}
 .content-group + .content-group {
   margin-top: var(--space-7);
   padding-top: var(--space-7);

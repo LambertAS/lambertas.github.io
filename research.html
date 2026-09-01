@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Research — Lambert Aditama Soehardjianto</title>
-<meta name="description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
+<meta name="description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, feature selection with the Jellyfish Optimization Algorithm, and coffee quality versus farm elevation.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:title" content="Research — Lambert Aditama Soehardjianto">
-<meta property="og:description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
+<meta property="og:description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, feature selection with the Jellyfish Optimization Algorithm, and coffee quality versus farm elevation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lambertas.github.io/research.html">
 <meta property="og:site_name" content="Lambert Aditama Soehardjianto">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Research — Lambert Aditama Soehardjianto">
-<meta name="twitter:description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
+<meta name="twitter:description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, feature selection with the Jellyfish Optimization Algorithm, and coffee quality versus farm elevation.">
 <script>
 (function () {
   try {
@@ -59,17 +59,14 @@
 
 <main id="main">
   <div class="container page-head">
-    <div class="section-head" data-num="after">
-      <span class="section-head__num" aria-hidden="true">02</span>
-      <h1 class="page-heading">Research</h1>
-    </div>
+    <h1 class="page-heading">Research</h1>
   </div>
 
   <div class="container">
-    <div class="section__body" style="padding-top: var(--space-6);">
+    <div class="section__body">
 
       <article class="entry" id="stroke-smote">
-        <h2 class="entry__title">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
+        <h2 class="entry__title" style="view-transition-name: entry-stroke-smote">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
         <p class="entry__meta">First author. ICISS 2026, Bandung. Presented August 2026, publication forthcoming</p>
         <div class="prose">
           <p>Stroke prevalence in this dataset was 4.87% across 5,110 records. At that ratio a model that predicts &ldquo;no stroke&rdquo; for every patient scores about 95% accuracy and is completely useless, which is the practical problem the paper addresses.</p>
@@ -79,11 +76,20 @@
       </article>
 
       <article class="entry" id="jellyfish-feature-selection">
-        <h2 class="entry__title">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
+        <h2 class="entry__title" style="view-transition-name: entry-jellyfish-feature-selection">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
         <p class="entry__meta">Second author. IEEE iCAST 2025. DOI: 10.1109/iCAST68191.2025.11300257</p>
         <div class="prose">
           <p>I implemented the algorithm from scratch and benchmarked it as a feature selector against a no-selection baseline across five classifiers on 918 records.</p>
           <p>Implementing it rather than importing it was the point. Metaheuristics are easy to describe and easy to get subtly wrong, and writing it out surfaced parameter choices the original description left implicit.</p>
+        </div>
+      </article>
+
+      <article class="entry" id="coffee-elevation">
+        <h2 class="entry__title" style="view-transition-name: entry-coffee-elevation">Analysing the Relationship Between Coffee Quality and Farm Elevation</h2>
+        <p class="entry__meta">Sole author. Jurnal Publikasi Teknik Informatika, 2(2):100-109, May 2023. DOI: 10.55606/jupti.v2i2.1752. Originally published in Indonesian</p>
+        <div class="prose">
+          <p>An exploratory data analysis in Python on coffee quality data from Kaggle, testing whether the elevation a crop is grown at relates to its assessed quality. Higher farms produced better-rated coffee across the countries in the dataset.</p>
+          <p>This is early undergraduate work, and the lightest of the three papers here. It is descriptive analysis on a public dataset, and it confirms a relationship already established in coffee agronomy rather than finding a new one.</p>
         </div>
       </article>
 
