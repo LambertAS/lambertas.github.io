@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Research — Lambert Aditama Soehardjianto</title>
 <meta name="description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="Research — Lambert Aditama Soehardjianto">
+<meta property="og:description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lambertas.github.io/research.html">
+<meta property="og:site_name" content="Lambert Aditama Soehardjianto">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Research — Lambert Aditama Soehardjianto">
+<meta name="twitter:description" content="Research by Lambert Aditama Soehardjianto: imbalanced-data classification for stroke prediction, and the Jellyfish Optimization Algorithm for feature selection.">
 <script>
 (function () {
   try {
@@ -61,7 +70,7 @@
 
       <article class="entry" id="stroke-smote">
         <h2 class="entry__title">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
-        <p class="entry__meta">First author &middot; ICISS 2026, Bandung &middot; presented August 2026, publication forthcoming</p>
+        <p class="entry__meta">First author. ICISS 2026, Bandung. Presented August 2026, publication forthcoming</p>
         <div class="prose">
           <p>Stroke prevalence in this dataset was 4.87% across 5,110 records. At that ratio a model that predicts &ldquo;no stroke&rdquo; for every patient scores about 95% accuracy and is completely useless, which is the practical problem the paper addresses.</p>
           <p>I compared three resampling regimes across logistic regression, SVM with an RBF kernel, and XGBoost, holding preprocessing and tuning fixed so the comparison isolated the resampling choice. Ranked on PR-AUC and recall rather than accuracy, then checked the result held up under cross-validation, SHAP, and calibration curves.</p>
@@ -71,7 +80,7 @@
 
       <article class="entry" id="jellyfish-feature-selection">
         <h2 class="entry__title">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
-        <p class="entry__meta">Second author &middot; IEEE iCAST 2025 &middot; DOI: 10.1109/iCAST68191.2025.11300257</p>
+        <p class="entry__meta">Second author. IEEE iCAST 2025. DOI: 10.1109/iCAST68191.2025.11300257</p>
         <div class="prose">
           <p>I implemented the algorithm from scratch and benchmarked it as a feature selector against a no-selection baseline across five classifiers on 918 records.</p>
           <p>Implementing it rather than importing it was the point. Metaheuristics are easy to describe and easy to get subtly wrong, and writing it out surfaced parameter choices the original description left implicit.</p>
@@ -84,12 +93,15 @@
 
 <footer class="site-footer">
   <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__mark">Lambert Aditama Soehardjianto</p>
+      <p class="site-footer__note">Jakarta, Indonesia</p>
+    </div>
     <ul class="site-footer__links contact-list">
       <li><a class="ink-link" href="mailto:lambertaditama@gmail.com">lambertaditama@gmail.com</a></li>
-      <li><a class="ink-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener">LinkedIn<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
-      <li><a class="ink-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener">ResearchGate<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+      <li><a class="ink-link teaser-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener">LinkedIn<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+      <li><a class="ink-link teaser-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener">ResearchGate<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
     </ul>
-    <p class="site-footer__note">Jakarta, Indonesia</p>
   </div>
 </footer>
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Lambert Aditama Soehardjianto</title>
+<meta name="description" content="Page not found.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-mark" href="index.html">Lambert A.S.</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ol class="site-nav__list">
+        <li><a href="index.html" class="site-nav__link">Home</a></li>
+        <li><a href="work.html" class="site-nav__link">Work</a></li>
+        <li><a href="research.html" class="site-nav__link">Research</a></li>
+        <li><a href="about.html" class="site-nav__link">About</a></li>
+      </ol>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+      <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="8" cy="8" r="3.4"/>
+        <path d="M8 0.8v2M8 13.2v2M15.2 8h-2M2.8 8h-2M13.1 2.9l-1.4 1.4M4.3 11.7l-1.4 1.4M13.1 13.1l-1.4-1.4M4.3 4.3L2.9 2.9"/>
+      </svg>
+      <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M13.8 9.7A6 6 0 1 1 6.3 2.2a5 5 0 0 0 7.5 7.5Z"/>
+      </svg>
+      <span data-theme-label>Light</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container page-head" style="padding-bottom: var(--space-9);">
+    <div class="section-head">
+      <span class="section-head__num" aria-hidden="true">404</span>
+      <h1 class="page-heading">Page not found</h1>
+    </div>
+    <div class="section__body prose">
+      <p>There's nothing at this address. <a class="ink-link" href="index.html">Back to the homepage</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__mark">Lambert Aditama Soehardjianto</p>
+      <p class="site-footer__note">Jakarta, Indonesia</p>
+    </div>
+    <ul class="site-footer__links contact-list">
+      <li><a class="ink-link" href="mailto:lambertaditama@gmail.com">lambertaditama@gmail.com</a></li>
+      <li><a class="ink-link teaser-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener">LinkedIn<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+      <li><a class="ink-link teaser-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener">ResearchGate<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 1.5 10.5"/></svg></a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+</body>
+</html>
