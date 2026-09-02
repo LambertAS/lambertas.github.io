@@ -168,9 +168,28 @@ svg { display: block; }
   align-items: center;
   gap: var(--space-2);
 }
-.external-icon {
-  width: 11px;
-  height: 11px;
+/* Real, recognizable marks for email/LinkedIn/ResearchGate -- replaces the
+   old generic corner-arrow, which made every external link identical.
+   Monochrome stroke icons matching the site's existing icon language
+   (theme-toggle, .tools-list__icon): no icon font, no brand colors.
+   ResearchGate has no simple universally-known glyph, so it gets a small
+   "RG" monogram instead of an approximated logo. */
+.contact-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  transition: transform var(--duration-instant) var(--ease);
+}
+.contact-icon text {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-weight: 600;
+  fill: currentColor;
+  stroke: none;
+}
+.teaser-link:hover .contact-icon,
+.teaser-link:focus-visible .contact-icon {
+  transform: scale(1.12);
 }
 
 a:focus-visible, button:focus-visible {
@@ -764,53 +783,94 @@ main { display: block; }
 .contact-list a { font-size: 1.0625rem; }
 
 .site-footer {
-  border-top: 1px solid var(--color-border);
   background: var(--color-surface);
   margin-top: var(--space-7);
-  padding: var(--space-5) 0;
+  padding-bottom: var(--space-6);
 }
-.site-footer__inner {
+.site-footer__frame {
   max-width: var(--content-max);
   margin: 0 auto;
   padding: 0 var(--space-4);
+}
+/* The same dashed-rule-plus-dots treatment that opens every page via
+   .page-head__rule, now closing it too -- a real visual bookend instead of
+   the footer feeling like a separate, unrelated block. Reuses
+   .page-head__rule-dot directly rather than duplicating it. */
+.site-footer__rule {
+  position: relative;
+  border-top: 1px dashed var(--color-border);
+}
+.site-footer__inner {
+  padding-top: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-5);
   text-align: left;
 }
 .site-footer__mark {
   font-family: var(--font-display);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
 }
 .site-footer__note {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
-  margin-top: 2px;
+  margin-top: var(--space-1);
+}
+.site-footer__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-2);
 }
 .site-footer__links {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
-  font-family: var(--font-mono);
+  gap: var(--space-2);
 }
-.site-footer__links.contact-list a {
-  font-size: 0.75rem;
+/* A real 44x44px hit area -- closes the touch-target gap the very first
+   /impeccable audit on this project flagged and that never got addressed;
+   the icon itself stays small, the padding does the work. Shares the
+   [data-magnetic] hover system already wired for nav/theme-toggle. */
+.contact-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease), transform var(--duration-fast) var(--ease);
 }
-.site-footer__links.contact-list li {
-  margin-bottom: 0;
+.contact-icon-link:hover,
+.contact-icon-link:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.contact-icon-link .contact-icon {
+  width: 17px;
+  height: 17px;
 }
 
 @media (min-width: 640px) {
   .site-footer__inner {
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: var(--space-6);
+  }
+  .site-footer__contact {
+    text-align: right;
+  }
+  .site-footer__label {
+    margin: 0 0 var(--space-2);
+  }
+  .site-footer__links {
+    justify-content: flex-end;
   }
 }
 
