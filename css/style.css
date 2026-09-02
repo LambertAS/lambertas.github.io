@@ -783,29 +783,28 @@ main { display: block; }
 .contact-list a { font-size: 1.0625rem; }
 
 .site-footer {
+  border-top: 1px solid var(--color-border);
   background: var(--color-surface);
   margin-top: var(--space-7);
-  padding-bottom: var(--space-6);
+  padding: var(--space-6) 0;
 }
 .site-footer__frame {
   max-width: var(--content-max);
   margin: 0 auto;
   padding: 0 var(--space-4);
 }
-/* The same dashed-rule-plus-dots treatment that opens every page via
-   .page-head__rule, now closing it too -- a real visual bookend instead of
-   the footer feeling like a separate, unrelated block. Reuses
-   .page-head__rule-dot directly rather than duplicating it. */
-.site-footer__rule {
-  position: relative;
-  border-top: 1px dashed var(--color-border);
-}
+/* A single centered column -- name, location, icon row, credit line --
+   rather than a left/right split. The two-column version put unequal-
+   weight content on opposite sides (a short identity block vs. a labeled
+   icon row), which read as unbalanced; centering everything sidesteps that
+   entirely instead of trying to balance two sides against each other. Same
+   at every breakpoint, so there's no row/column switch needed. */
 .site-footer__inner {
-  padding-top: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  text-align: left;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
 }
 .site-footer__mark {
   font-family: var(--font-display);
@@ -820,17 +819,15 @@ main { display: block; }
   color: var(--color-text-muted);
   margin-top: var(--space-1);
 }
-.site-footer__label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin: 0 0 var(--space-2);
-}
 .site-footer__links {
   display: flex;
+  justify-content: center;
   gap: var(--space-2);
+}
+.site-footer__credit {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
 }
 /* A real 44x44px hit area -- closes the touch-target gap the very first
    /impeccable audit on this project flagged and that never got addressed;
@@ -855,23 +852,6 @@ main { display: block; }
 .contact-icon-link .contact-icon {
   width: 17px;
   height: 17px;
-}
-
-@media (min-width: 640px) {
-  .site-footer__inner {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .site-footer__contact {
-    text-align: right;
-  }
-  .site-footer__label {
-    margin: 0 0 var(--space-2);
-  }
-  .site-footer__links {
-    justify-content: flex-end;
-  }
 }
 
 /* ==========================================================================
