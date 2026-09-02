@@ -104,6 +104,13 @@
       var strength = 26;
       var mouse = { x: -9999, y: -9999, active: false };
 
+      // Crosshair: a plot-reading instrument, not part of the resting
+      // composition -- tracks 1:1 with the pointer (no easing lag, unlike
+      // the dots) and only exists while the pointer is actually over the
+      // field.
+      var crosshairX = svg.querySelector('.cal-crosshair--x');
+      var crosshairY = svg.querySelector('.cal-crosshair--y');
+
       var updateMouse = function (evt) {
         var rect = svg.getBoundingClientRect();
         var scaleX = 1000 / rect.width;
@@ -111,11 +118,26 @@
         mouse.x = (evt.clientX - rect.left) * scaleX;
         mouse.y = (evt.clientY - rect.top) * scaleY;
         mouse.active = true;
+
+        if (crosshairX) {
+          crosshairX.setAttribute('x1', mouse.x);
+          crosshairX.setAttribute('x2', mouse.x);
+        }
+        if (crosshairY) {
+          crosshairY.setAttribute('y1', mouse.y);
+          crosshairY.setAttribute('y2', mouse.y);
+        }
       };
 
+      svg.addEventListener('pointerenter', function () {
+        if (crosshairX) crosshairX.classList.add('is-active');
+        if (crosshairY) crosshairY.classList.add('is-active');
+      });
       svg.addEventListener('pointermove', updateMouse);
       svg.addEventListener('pointerleave', function () {
         mouse.active = false;
+        if (crosshairX) crosshairX.classList.remove('is-active');
+        if (crosshairY) crosshairY.classList.remove('is-active');
       });
 
       gsap.ticker.add(function () {

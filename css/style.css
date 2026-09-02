@@ -305,10 +305,28 @@ a:focus-visible, button:focus-visible {
 [data-magnetic] {
   transform: translate(var(--mx, 0), var(--my, 0));
 }
-.theme-toggle__icon { width: 15px; height: 15px; }
-.theme-toggle__icon--moon { display: none; }
-:root[data-theme="dark"] .theme-toggle__icon--sun { display: none; }
-:root[data-theme="dark"] .theme-toggle__icon--moon { display: block; }
+/* Sun/moon cross-fade with a slight rotate instead of a display:none/block
+   cut. Both icons are stacked absolute inside this fixed-size wrapper so
+   the swap never disturbs the button's layout; this plays alongside the
+   click-triggered circular view-transition reveal in js/theme.js as a small
+   compound detail, not a replacement for it. */
+.theme-toggle__icons {
+  position: relative;
+  width: 15px;
+  height: 15px;
+}
+.theme-toggle__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  transition: opacity var(--duration-base) var(--ease), transform var(--duration-base) var(--ease);
+}
+.theme-toggle__icon--moon { opacity: 0; transform: rotate(-45deg) scale(0.7); }
+.theme-toggle__icon--sun { opacity: 1; transform: rotate(0deg) scale(1); }
+:root[data-theme="dark"] .theme-toggle__icon--sun { opacity: 0; transform: rotate(45deg) scale(0.7); }
+:root[data-theme="dark"] .theme-toggle__icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
 
 /* ==========================================================================
    Layout containers
@@ -359,6 +377,33 @@ main { display: block; }
   font-size: 0.875rem;
   color: var(--color-text-muted);
 }
+/* A small live/available status indicator -- appropriate here specifically
+   because that line communicates real availability information, not
+   decoration for its own sake. Reduced motion collapses the pulse keyframe
+   to a single frozen frame via the existing global rule, same as every
+   other animation on the site -- no special-casing needed. */
+.status-dot {
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: var(--space-2);
+  border-radius: 50%;
+  background: var(--color-accent);
+  vertical-align: middle;
+}
+.status-dot::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  animation: status-pulse 2.4s var(--ease) infinite;
+}
+@keyframes status-pulse {
+  from { opacity: 0.6; transform: scale(0.4); }
+  to { opacity: 0; transform: scale(1.6); }
+}
 
 /* ==========================================================================
    Calibration line — the signature element. A residual plot: predictions
@@ -394,6 +439,23 @@ main { display: block; }
 }
 .cal-dot--outlier {
   fill: var(--color-accent);
+}
+/* Plot-reading crosshair -- js/hero-motion.js positions these to track the
+   pointer and toggles .is-active on the same pointermove/pointerleave pair
+   already driving the dot-repel effect, so it inherits the exact same
+   gating (fine pointer + hover-capable + !prefers-reduced-motion) with no
+   extra logic. Interaction-only: never part of the resting composition, so
+   no-JS and reduced-motion visitors never see it, correctly. */
+.cal-crosshair {
+  stroke: var(--color-text-muted);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-instant) var(--ease);
+}
+.cal-crosshair.is-active {
+  opacity: 0.6;
 }
 
 /* ==========================================================================
@@ -582,34 +644,41 @@ main { display: block; }
    href, the page itself is the destination, so this is hover-only with no
    focus-visible equivalent needed. .entry--railed goes display:contents at
    desktop (see below), which means .entry itself generates no box there and
-   a pseudo-element on it wouldn't render -- so the tick lives on
-   .entry__content instead, a real box at every breakpoint, reusing the same
-   left-edge tick token as .index-list__link. */
+   a pseudo-element on it wouldn't render -- so the trigger is
+   .entry__content (a real box at every breakpoint). The tick itself is
+   anchored to .entry__title rather than .entry__content: the content block
+   carries grid-spacing padding-top that's 0 on the first entry but 32-64px
+   on every entry after it, so an offset measured from the content block's
+   own top landed correctly only on the first entry and inside the gap
+   above every other one. The title never carries that padding, so anchoring
+   there holds regardless of which entry it is -- same centering technique
+   as .index-list__link::before. */
 .entry__content {
   position: relative;
 }
-.entry__content::before {
-  content: "";
-  position: absolute;
-  left: -14px;
-  top: 0.4em;
-  width: 2px;
-  height: 18px;
-  background: var(--color-accent);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform var(--duration-instant) var(--ease);
-}
-.entry__content:hover::before {
-  transform: scaleY(1);
-}
-.entry__content:hover .entry__title {
-  color: var(--color-accent);
-}
 .entry__title {
+  position: relative;
   font-size: 1.375rem;
   margin: 0 0 var(--space-2);
   transition: color var(--duration-instant) var(--ease);
+}
+.entry__title::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 2px;
+  height: 18px;
+  background: var(--color-accent);
+  transform: translateY(-50%) scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-instant) var(--ease);
+}
+.entry__content:hover .entry__title::before {
+  transform: translateY(-50%) scaleY(1);
+}
+.entry__content:hover .entry__title {
+  color: var(--color-accent);
 }
 .entry__meta {
   font-family: var(--font-mono);
