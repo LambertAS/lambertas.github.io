@@ -205,6 +205,22 @@ a:focus-visible, button:focus-visible {
   border-bottom: 1px solid var(--color-border);
   transition: background var(--duration-base) var(--ease);
 }
+/* Scroll-position awareness: a direct, unsmoothed readout of how far down
+   the page the visitor is, set by js/motion.js's existing scroll handler.
+   Same category as .is-compact below it -- reflects state the visitor is
+   actively causing, not new autonomous motion -- so it isn't gated behind
+   prefers-reduced-motion. */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+}
 .site-header__inner {
   max-width: var(--site-max);
   margin: 0 auto;
@@ -247,7 +263,7 @@ a:focus-visible, button:focus-visible {
   white-space: nowrap;
   padding: var(--space-2) 0 var(--space-2) var(--space-3);
   border-bottom: 2px solid transparent;
-  transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease);
+  transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease), transform var(--duration-fast) var(--ease);
 }
 .site-nav__link:hover { color: var(--color-text); }
 .site-nav__link[aria-current="page"] {
@@ -278,9 +294,17 @@ a:focus-visible, button:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: 999px;
   padding: var(--space-2) var(--space-4);
-  transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease);
+  transition: color var(--duration-instant) var(--ease), border-color var(--duration-instant) var(--ease), transform var(--duration-fast) var(--ease);
 }
 .theme-toggle:hover { color: var(--color-text); border-color: var(--color-text-muted); }
+/* Magnetic hover -- js/motion.js sets --mx/--my on pointermove within a
+   [data-magnetic] element's bounds (fine pointer + hover-capable + motion
+   allowed only) and resets them to 0 on pointerleave; the transition above
+   is what turns each update into an eased "pull" rather than a 1:1 cursor
+   lock. Falls back to 0,0 (no-op) with no JS. */
+[data-magnetic] {
+  transform: translate(var(--mx, 0), var(--my, 0));
+}
 .theme-toggle__icon { width: 15px; height: 15px; }
 .theme-toggle__icon--moon { display: none; }
 :root[data-theme="dark"] .theme-toggle__icon--sun { display: none; }
@@ -340,11 +364,14 @@ main { display: block; }
    Calibration line — the signature element. A residual plot: predictions
    stay close to the reference line at low-to-mid risk, then drift as risk
    rises -- a real, well-documented failure mode in imbalanced classifiers,
-   not an arbitrary scatter. One point is flagged and held apart. This is
-   the one deliberately bold moment on the site; everything else stays
-   quiet. Scroll-driven entrance is js/calibration.js (GSAP); this markup
-   and these rules are the correct, resolved composition on their own —
-   no-JS and reduced-motion visitors see exactly this, nothing missing.
+   not an arbitrary scatter. One point is flagged and held apart -- it never
+   scatters on load and never responds to the pointer, unlike the rest of
+   the field. This is the one deliberately bold moment on the site; everything
+   else stays quiet. js/hero-motion.js (GSAP) plays a self-contained entrance
+   on load -- never tied to scroll position -- and layers pointer-reactivity
+   on top once settled (desktop, fine pointer only). This markup and these
+   rules are the correct, resolved composition on their own — no-JS and
+   reduced-motion visitors see exactly this, nothing missing.
    ========================================================================== */
 .hero__calibration {
   position: relative;
@@ -367,17 +394,6 @@ main { display: block; }
 }
 .cal-dot--outlier {
   fill: var(--color-accent);
-}
-.cal-label {
-  position: absolute;
-  transform: translateY(-50%);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  white-space: nowrap;
-  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -473,11 +489,13 @@ main { display: block; }
 .index-list__item:last-child { border-bottom: 1px solid var(--color-border); }
 .index-list__link {
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: 2.5rem 1fr auto;
   align-items: baseline;
   gap: var(--space-4);
   padding: var(--space-5) 0;
+  transition: transform var(--duration-instant) var(--ease);
 }
 .index-list__link::before {
   content: "";
@@ -491,9 +509,28 @@ main { display: block; }
   transform-origin: center;
   transition: transform var(--duration-instant) var(--ease);
 }
+/* A soft row fill, full-bleed via a negative-inset pseudo-element so the
+   padding box doesn't have to change. Same tier and timing as the tick. */
+.index-list__link::after {
+  content: "";
+  position: absolute;
+  inset: 0 calc(-1 * var(--space-4));
+  background: var(--color-surface);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--duration-instant) var(--ease);
+}
 .index-list__link:hover::before,
 .index-list__link:focus-visible::before {
   transform: translateY(-50%) scaleY(1);
+}
+.index-list__link:hover::after,
+.index-list__link:focus-visible::after {
+  opacity: 1;
+}
+.index-list__link:hover,
+.index-list__link:focus-visible {
+  transform: translateX(6px);
 }
 .index-list__link:hover .index-list__title,
 .index-list__link:focus-visible .index-list__title { color: var(--color-accent); }
@@ -541,9 +578,38 @@ main { display: block; }
 }
 .entry:first-child { padding-top: 0; }
 .entry + .entry { border-top: 1px solid var(--color-border); }
+/* Passive reading affordance, not an interactive one -- entries have no
+   href, the page itself is the destination, so this is hover-only with no
+   focus-visible equivalent needed. .entry--railed goes display:contents at
+   desktop (see below), which means .entry itself generates no box there and
+   a pseudo-element on it wouldn't render -- so the tick lives on
+   .entry__content instead, a real box at every breakpoint, reusing the same
+   left-edge tick token as .index-list__link. */
+.entry__content {
+  position: relative;
+}
+.entry__content::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 0.4em;
+  width: 2px;
+  height: 18px;
+  background: var(--color-accent);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-instant) var(--ease);
+}
+.entry__content:hover::before {
+  transform: scaleY(1);
+}
+.entry__content:hover .entry__title {
+  color: var(--color-accent);
+}
 .entry__title {
   font-size: 1.375rem;
   margin: 0 0 var(--space-2);
+  transition: color var(--duration-instant) var(--ease);
 }
 .entry__meta {
   font-family: var(--font-mono);
