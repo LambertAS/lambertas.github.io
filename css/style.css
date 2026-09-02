@@ -66,6 +66,17 @@
 }
 ::view-transition-group(root) { animation-duration: var(--duration-fast); }
 ::view-transition-group(masthead) { animation-duration: var(--duration-base); }
+/* A touch more dimensionality on routine navigation than the UA's plain
+   cross-fade -- the incoming page settles in from 98% rather than just
+   appearing. Kept fast; .theme-transition below overrides this entirely
+   for the same-document theme toggle. */
+::view-transition-new(root) {
+  animation: view-in var(--duration-fast) var(--ease);
+}
+@keyframes view-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 /* Theme-toggle circular reveal (same-document, script-triggered; see js/theme.js).
    Scoped to html.theme-transition so it never applies to page-navigation
@@ -308,6 +319,11 @@ main { display: block; }
   letter-spacing: -0.01em;
   margin: 0 0 var(--space-6);
   max-width: 18ch;
+  animation: hero-name-in 480ms var(--ease) both;
+}
+@keyframes hero-name-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .hero__role {
   font-size: 1.1875rem;
@@ -321,45 +337,47 @@ main { display: block; }
 }
 
 /* ==========================================================================
-   Calibration line — the signature element. A residual plot: most points
-   settle near the reference line, one does not. See css note in the repo
-   plan for the reasoning; this is the one deliberately bold moment on the
-   page, everything else stays quiet.
+   Calibration line — the signature element. A residual plot: predictions
+   stay close to the reference line at low-to-mid risk, then drift as risk
+   rises -- a real, well-documented failure mode in imbalanced classifiers,
+   not an arbitrary scatter. One point is flagged and held apart. This is
+   the one deliberately bold moment on the site; everything else stays
+   quiet. Scroll-driven entrance is js/calibration.js (GSAP); this markup
+   and these rules are the correct, resolved composition on their own —
+   no-JS and reduced-motion visitors see exactly this, nothing missing.
    ========================================================================== */
 .hero__calibration {
   position: relative;
-  height: 56px;
-  margin-top: var(--space-6);
+  margin-top: var(--space-7);
 }
-.hero__calibration-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  border-top: 1px dashed var(--color-border);
+.hero__calibration-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.cal-line {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
 }
 .cal-dot {
-  position: absolute;
-  top: 50%;
-  left: var(--x);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-text-muted);
-  transform: translate(-50%, calc(-50% + var(--y-start)));
-  animation: cal-settle var(--duration-reveal) ease-in-out forwards;
-  animation-delay: var(--delay, 0ms);
+  fill: var(--color-text-muted);
 }
 .cal-dot--outlier {
-  background: var(--color-accent);
-  width: 7px;
-  height: 7px;
+  fill: var(--color-accent);
 }
-@keyframes cal-settle {
-  0%   { transform: translate(-50%, calc(-50% + var(--y-start))); }
-  60%  { transform: translate(-50%, calc(-50% + var(--y-end) - 3px)); }
-  80%  { transform: translate(-50%, calc(-50% + var(--y-end) + 1px)); }
-  100% { transform: translate(-50%, calc(-50% + var(--y-end))); }
+.cal-label {
+  position: absolute;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -380,8 +398,22 @@ main { display: block; }
   padding: calc(var(--space-8) + var(--space-2)) 0 0;
 }
 .page-head__rule {
+  position: relative;
   margin-top: var(--space-4);
   border-top: 1px dashed var(--color-border);
+}
+/* A quiet, static echo of the hero's calibration line -- same visual
+   vocabulary (dots on a dashed line), no motion, no JS. The hero is the
+   one bold moment; this is just enough to feel like the same hand drew
+   both. */
+.page-head__rule-dot {
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transform: translate(-50%, -50%);
 }
 /* Work/Research have no .section wrapper around their content frame (About's
    sections each carry their own top padding for free), so this is the only
@@ -440,11 +472,28 @@ main { display: block; }
 }
 .index-list__item:last-child { border-bottom: 1px solid var(--color-border); }
 .index-list__link {
+  position: relative;
   display: grid;
   grid-template-columns: 2.5rem 1fr auto;
   align-items: baseline;
   gap: var(--space-4);
   padding: var(--space-5) 0;
+}
+.index-list__link::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 2px;
+  height: 18px;
+  background: var(--color-accent);
+  transform: translateY(-50%) scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-instant) var(--ease);
+}
+.index-list__link:hover::before,
+.index-list__link:focus-visible::before {
+  transform: translateY(-50%) scaleY(1);
 }
 .index-list__link:hover .index-list__title,
 .index-list__link:focus-visible .index-list__title { color: var(--color-accent); }
