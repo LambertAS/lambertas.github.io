@@ -81,10 +81,13 @@
           <div class="entry__content" data-reveal style="--i:0">
             <h2 class="entry__title" style="view-transition-name: entry-pulse-survey-pipeline">Employee pulse survey analytics pipeline</h2>
             <div class="prose">
-              <p>The annual employee pulse survey covered roughly 9,000 responses across the organisation. The reporting was assembled by hand each year, which limited how much could be reported and how fast.</p>
+              <p>The annual employee engagement survey runs across the whole organisation &mdash; over 12,000 employees, 11 directorates, 88 reporting units. This was a pulse measurement ahead of it, roughly 9,000 responses to process, checking whether managers had acted on the previous year's results. The reporting was assembled by hand each year, which limited how much could be reported and how fast.</p>
               <p>I built the pipeline that replaced it. Raw export goes in, mapped to org units, stratified sampling applied, and a formatted PowerPoint report comes out for each unit.</p>
               <p>The org-unit mapping was the hard part. Reporting structures do not match the shape of the data export, and getting responses attributed to the right unit without breaking respondent anonymity took more iteration than the analysis did.</p>
-              <p>Stratified rather than simple sampling because unit sizes vary by an order of magnitude, and a naive sample would let the largest units dominate every reported figure.</p>
+              <p>Stratified sampling wasn't the starting assumption. I tested simple random sampling first, against the previous year's data &mdash; it produced unstable favorability on small units, where a handful of respondents meant one or two people could move the percentage by several points. Stratified sampling, tried in response, held up: respondents split into three strata by mean score, slots allocated proportionally with largest-remainder rounding, and a fixed seed for reproducibility.</p>
+              <p>Mean-fill imputation was one option for the gaps and explicitly rejected &mdash; it manufactures answers no respondent gave. A script instead verified that every output row existed unmodified in the input, so nothing downstream stood on data that hadn't come from someone actually answering.</p>
+              <p>The open-text responses were in Indonesian, themed with whole-word regular expressions tolerant of Indonesian prefixes and suffixes rather than plain substring matching, which over-counted badly &mdash; short tokens kept matching inside longer, unrelated words. The corrected pass reached 81.5% thematic coverage, and a manual review on top of it still surfaced two themes the automated pass had missed.</p>
+              <!-- "What I'd do differently" not yet answered in work-source.md -->
             </div>
           </div>
         </article>
@@ -98,9 +101,12 @@
             <h2 class="entry__title" style="view-transition-name: entry-sla-dashboard">HR service ticket SLA dashboard</h2>
             <div class="prose">
               <p>The report already existed as an Excel file. It showed one period, it could not be filtered, and updating it meant someone opening the file and editing it again by hand every cycle.</p>
-              <p>I rebuilt it in Power BI. I reshaped the source data, then built the visualisations and interactive filters, choosing each chart type to fit what the measure actually was rather than applying one format across everything.</p>
+              <p>I rebuilt it in Power BI, covering ticket data from 2022 to 2026. I reshaped the source data, then built the visualisations and interactive filters, choosing each chart type to fit what the measure actually was rather than applying one format across everything.</p>
+              <p>Visualisation wasn't where the real difficulty was. Resolution targets varied by every combination of ticket category and sub-category &mdash; impossible to write as a single formula &mdash; so I designed a separate lookup dimension table against the ticket fact table, and the measures just look the threshold up.</p>
               <p>Cleaning was the hard part, and it came before any of the visual work. Not every ticket in the export was in a finished state. Some were still open and some had not been accepted yet, and those cannot be counted alongside closed tickets without distorting every SLA figure on the page. Getting that state logic right determined whether anything downstream meant what it appeared to mean.</p>
               <p>I presented the finished dashboard to my Department Head and the General Managers, walking through how it worked and why each chart was built the way it was.</p>
+              <p>Beyond the SLA dashboard, I built a workplace accident dashboard covering 2025 through Q1 2026 &mdash; a relational model with an incident fact table against time, department, and injury-type dimensions &mdash; and an AI-usage survey dashboard for HR. I also evaluated Looker as a non-Microsoft alternative, building a working relational model and an experimental dashboard in it.</p>
+              <!-- "What I'd do differently" not yet answered in work-source.md -->
             </div>
           </div>
         </article>
@@ -114,8 +120,26 @@
             <h2 class="entry__title" style="view-transition-name: entry-pms-prototypes">Performance Management System dashboard prototypes</h2>
             <div class="prose">
               <p>I prototyped the dashboard for the Performance Management System revamp across three access levels: Associate, People Leader, and the Admin panel. Each role sees a different slice of the system, so each needed its own layout rather than one screen with sections hidden depending on who is looking.</p>
-              <p>Against the previous version, what changed was the visualisation. Cleaner charts, KPI cards chosen because they were relevant rather than because the data happened to be available, and a more compact layout so a leader can read their view without scrolling past everything else first.</p>
+              <p>The original design showed identical elements to every role, which cross-divisional review flagged as both confusing for operational staff and exposing administrative information to people who didn't need it. I restructured it into role-separated views &mdash; restricting the deadline countdown to Admin was an access-rights decision, on least-privilege grounds, not a visual one, alongside removing a redundant overview, standardising headers, and adding an eligibility disclaimer.</p>
+              <p>Beyond the role separation, the visual layer changed too: cleaner charts, KPI cards chosen because they were relevant rather than because the data happened to be available, and a more compact layout so a leader can read their view without scrolling past everything else first.</p>
               <p>I also supported my team on the wider functionality revamp of the Performance Management System. The dashboard was my part of it.</p>
+              <!-- "What I'd do differently" not yet answered in work-source.md -->
+            </div>
+          </div>
+        </article>
+
+        <article class="entry entry--railed" id="data-quality-remediation">
+          <div class="rail">
+            <p>2026</p>
+          </div>
+          <div class="entry__content" data-reveal style="--i:3">
+            <h2 class="entry__title" style="view-transition-name: entry-data-quality-remediation">Data quality remediation</h2>
+            <div class="prose">
+              <p>211 rows in the previous year's survey data didn't line up: answer columns had come apart from the demographic columns next to them. The root cause wasn't the survey platform &mdash; someone had sorted the demographic columns in a spreadsheet without extending the selection to the answer columns, so the two halves of every row separated. I wrote a prevention procedure afterwards. It set the pattern for most of this work: data looks fine on inspection and only breaks once it's aggregated or joined.</p>
+              <p>Four years of service ticket history, 2022 to 2026, needed the same kind of attention before any of it could be trusted. Cleaning covered ghost-column detection and removal, identifying which columns were actually approval columns, and forward-filling across thousands of empty cells where a blank meant the row was still in the same context as the one above it, not that data was missing.</p>
+              <p>A later system upload produced hundreds of duplicated transaction records in the order data. I filtered the query, wrote an anomaly report, and recommended a review of the data input flow that had let the duplicates through in the first place.</p>
+              <p>A response-rate drop in one part of the organisation looked at first like a weighting error. The raw data told a different story: respondents had selected the wrong unit themselves. That changed the fix from a formula correction to form design and input validation &mdash; a different problem than the one it first looked like.</p>
+              <!-- "What I'd do differently" not yet answered in work-source.md -->
             </div>
           </div>
         </article>
@@ -133,8 +157,9 @@
           <div class="entry__content" data-reveal style="--i:0">
             <h2 class="entry__title" style="view-transition-name: entry-hr-system-requirements">Requirements work on HR system upgrades</h2>
             <div class="prose">
-              <p>I wrote three Business Requirement Documents with supporting cost-benefit analyses for HR system upgrades. All three were approved and went into build.</p>
+              <p>I wrote two Business Requirement Documents and contributed to a third, all taken into build: one covering a mailing services replacement with a supporting cost-benefit analysis, one for a dashboard change request covering all three access levels, and a contribution to a third covering other feature changes. Each was written in Bahasa Indonesia to an internal formatting standard.</p>
               <p>I also ran the weekly requirements sessions between HR and IT. These two groups describe the same problem in incompatible vocabulary, and much of the value in those meetings came from noticing when agreement was only apparent. Translating what HR described into functional specifications IT could estimate against was the actual deliverable, not the meeting.</p>
+              <!-- "What I'd do differently" not yet answered in work-source.md -->
             </div>
           </div>
         </article>
@@ -146,8 +171,9 @@
           <div class="entry__content" data-reveal style="--i:1">
             <h2 class="entry__title" style="view-transition-name: entry-uat-performance-appraisal">User acceptance testing, performance appraisal module</h2>
             <div class="prose">
-              <p>I ran UAT across 15 scenarios, logged 20 defects in an issue log, and retested each one to closure before launch. I wrote the end-user manual that shipped with it.</p>
+              <p>I ran UAT in two phases &mdash; phase one covered the individual and team goal-setting modules, phase two covered supervisor-level views, the personal development plan module, and mid-year review. Scenarios and test cases were written up front, before execution: 15 scenarios run, 20 defects logged to an issue log and retested to closure before launch. I wrote the end-user manual that shipped with it.</p>
               <p>The defects were functional. Buttons that did nothing when clicked. Filters that returned the wrong set of records. Fields with no validation at all, and fields accepting special characters they should have rejected. Several sat in the record operations themselves, where adding, editing or deleting did not behave the way the specification said it would.</p>
+              <!-- "What I'd do differently" not yet answered in work-source.md -->
             </div>
           </div>
         </article>
@@ -176,6 +202,9 @@
         </a></li>
         <li><a class="contact-icon-link" href="https://github.com/LambertAS" target="_blank" rel="noopener" aria-label="GitHub: github.com/LambertAS" data-magnetic>
           <svg class="contact-icon" viewBox="0 0 16 16" fill="currentColor" stroke="none" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a></li>
+        <li><a class="contact-icon-link" href="/Lambert_Aditama_Soehardjianto_CV.pdf" download aria-label="Download CV (PDF)" data-magnetic>
+          <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5V14.5H4V1.5Z"/><path d="M9.5 1.5V4.5H12.5"/><path d="M6 8h4M6 10.5h4M6 6.5h2"/></svg>
         </a></li>
       </ul>
       <p class="site-footer__credit">Built by Lambert A.S.</p>
