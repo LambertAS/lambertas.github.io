@@ -396,9 +396,8 @@ main { display: block; }
   font-size: 0.875rem;
   color: var(--color-text-muted);
 }
-/* A small live/available status indicator -- appropriate here specifically
-   because that line communicates real availability information, not
-   decoration for its own sake. Reduced motion collapses the pulse keyframe
+/* A small live indicator next to the location -- signals current whereabouts,
+   not decoration for its own sake. Reduced motion collapses the pulse keyframe
    to a single frozen frame via the existing global rule, same as every
    other animation on the site -- no special-casing needed. */
 .status-dot {
