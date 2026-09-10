@@ -945,6 +945,23 @@ main { display: block; }
   .rail-grid > .section__body {
     grid-column: 2;
   }
+  /* The rail label carries the section name visually at this width (it
+     duplicates the heading text but is aria-hidden), so the real heading
+     stays in the accessibility tree -- aria-labelledby on the section still
+     points to it -- but is visually hidden here instead of shown twice.
+     display:none would risk some AT/heading-navigation implementations
+     skipping it entirely, so this uses the standard clip-based technique. */
+  .rail-grid > .section__heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 
   .entry--railed { display: contents; }
   .entry--railed .rail { grid-column: 1; margin-bottom: 0; }
