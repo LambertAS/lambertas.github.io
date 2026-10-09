@@ -648,11 +648,6 @@ main { display: block; }
 /* ==========================================================================
    Entries (Work / Research / Education / Beyond)
    ========================================================================== */
-.content-group + .content-group {
-  margin-top: var(--space-7);
-  padding-top: var(--space-7);
-  border-top: 1px solid var(--color-border);
-}
 .entry {
   padding-top: var(--space-7);
 }
@@ -768,11 +763,6 @@ main { display: block; }
   margin-bottom: var(--space-1);
 }
 .languages-list dd { margin: 0; max-width: var(--measure); }
-.content-group--tight + .content-group--tight {
-  border-top: none;
-  padding-top: 0;
-  margin-top: var(--space-6);
-}
 
 /* ==========================================================================
    Contact / footer
