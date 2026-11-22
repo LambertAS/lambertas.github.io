@@ -40,53 +40,60 @@
   --radius-photo: 16px;
   --image-outline: oklch(0 0 0 / 0.1);
 
-  /* Light theme: Paper, Linen, Sand, Ink, Umber, Terracotta */
-  --color-bg: #FAF6EE;
-  --color-surface: #F1E8D6;
-  --color-border: #DFD2B3;
-  --color-text: #2A2015;
-  --color-text-muted: #5F4E34;
-  --color-accent: #8F2E09;
+  /* Graph paper, light: Paper, Grid, Rule, Ink, Slate, Teal; Rust marks the outlier */
+  --color-bg: #F4F6F5;
+  --color-surface: #E6EBE9;
+  --color-border: #C9D3D0;
+  --color-text: #1B2430;
+  --color-text-muted: #4A5866;
+  --color-accent: #0F6B6B;
+  --color-outlier: #C2410C;
+  --shadow-tint: oklch(0.25 0.03 240 / 0.3);
 
-  /* Bands: Night Ink sections that alternate with Paper */
-  --band-bg: #1F1811;
-  --band-surface: #2A2118;
-  --band-border: #3F3222;
-  --band-text: #F0E6D2;
-  --band-muted: #B3A184;
-  --band-accent: #FF8A4C;
+  /* Bands: Night Slate sections that alternate with Paper */
+  --band-bg: #16202A;
+  --band-surface: #1F2B36;
+  --band-border: #33424F;
+  --band-text: #E3E9ED;
+  --band-muted: #9AA9B5;
+  --band-accent: #4DB6AC;
+  --band-outlier: #F2804B;
   --band-rule: transparent;
 }
 
 :root[data-theme="dark"] {
-  /* Espresso, Roast, Char, Parchment, Oat, Ember */
-  --color-bg: #1C1610;
-  --color-surface: #251D14;
-  --color-border: #3A2E1F;
-  --color-text: #F0E6D2;
-  --color-text-muted: #B3A184;
-  --color-accent: #FF8A4C;
+  /* Graph paper, dark: Night, Slate, Rule, Mist, Steel, Teal; Ember marks the outlier.
+     Bands are one step up, not an inversion, so dark mode never flashes a pale band. */
+  --color-bg: #10161B;
+  --color-surface: #18212A;
+  --color-border: #2B3946;
+  --color-text: #E3E9ED;
+  --color-text-muted: #9AA9B5;
+  --color-accent: #4DB6AC;
+  --color-outlier: #F2804B;
+  --shadow-tint: oklch(0 0 0 / 0.5);
   --image-outline: oklch(1 0 0 / 0.1);
-  /* Raised Roast: one step up, not an inversion, so dark mode never flashes a cream band */
-  --band-bg: #2C2319;
-  --band-surface: #352A1E;
-  --band-border: #4A3B29;
-  --band-rule: #FF8A4C;
+  --band-bg: #1C2631;
+  --band-surface: #25313D;
+  --band-border: #3A4958;
+  --band-rule: #4DB6AC;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-bg: #1C1610;
-    --color-surface: #251D14;
-    --color-border: #3A2E1F;
-    --color-text: #F0E6D2;
-    --color-text-muted: #B3A184;
-    --color-accent: #FF8A4C;
+    --color-bg: #10161B;
+    --color-surface: #18212A;
+    --color-border: #2B3946;
+    --color-text: #E3E9ED;
+    --color-text-muted: #9AA9B5;
+    --color-accent: #4DB6AC;
+    --color-outlier: #F2804B;
+    --shadow-tint: oklch(0 0 0 / 0.5);
     --image-outline: oklch(1 0 0 / 0.1);
-    --band-bg: #2C2319;
-    --band-surface: #352A1E;
-    --band-border: #4A3B29;
-    --band-rule: #FF8A4C;
+    --band-bg: #1C2631;
+    --band-surface: #25313D;
+    --band-border: #3A4958;
+    --band-rule: #4DB6AC;
   }
 }
 
@@ -268,7 +275,7 @@ a:focus-visible, button:focus-visible {
   backdrop-filter: blur(16px) saturate(1.2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
-  box-shadow: 0 6px 20px -12px oklch(0.2 0.03 60 / 0.35);
+  box-shadow: 0 6px 20px -12px var(--shadow-tint);
 }
 
 .site-mark {
@@ -374,6 +381,7 @@ main { display: block; }
   --color-text: var(--band-text);
   --color-text-muted: var(--band-muted);
   --color-accent: var(--band-accent);
+  --color-outlier: var(--band-outlier);
   background: var(--color-bg);
   color: var(--color-text);
   border-top: 1px solid var(--band-rule);
@@ -415,14 +423,14 @@ main { display: block; }
   font-size: 0.875rem;
   color: var(--color-text-muted);
 }
-/* Static marker beside the location: the same terracotta as the plot's flagged point. */
+/* Static marker beside the location: the same rust as the plot's flagged point. */
 .status-dot {
   display: inline-block;
   width: 6px;
   height: 6px;
   margin-right: var(--space-2);
   border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--color-outlier);
   vertical-align: middle;
 }
 .hero__portrait {
@@ -472,7 +480,7 @@ main { display: block; }
   stroke-dasharray: 7 6;
 }
 .cal-dot { fill: var(--color-text-muted); }
-.cal-dot--outlier { fill: var(--color-accent); }
+.cal-dot--outlier { fill: var(--color-outlier); }
 .cal-crosshair {
   stroke: var(--color-text-muted);
   stroke-width: 1;
@@ -602,7 +610,7 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
 .motif { width: min(100%, 360px); height: auto; }
 .motif__line { stroke: var(--color-border); stroke-width: 2; stroke-dasharray: 7 6; fill: none; }
 .motif__dot { fill: var(--color-text-muted); }
-.motif__dot--flag { fill: var(--color-accent); }
+.motif__dot--flag { fill: var(--color-outlier); }
 
 /* ==========================================================================
    Process diagrams (Work entries and the feature card)
