@@ -33,6 +33,9 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --press-scale: 0.97;
+  /* One hover system: every hover and focus-visible state shares this timing. */
+  --hover-duration: 220ms;
+  --hover-stagger: 40ms;
 
   --radius-pill: 999px;
   --radius-panel: 8px;
@@ -155,6 +158,9 @@ body {
   line-height: 1.6;
   transition: background-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
 }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 img { max-width: 100%; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
 dl { margin: 0; }
@@ -258,6 +264,20 @@ a:focus-visible, button:focus-visible {
   padding: var(--space-3) var(--gutter);
   pointer-events: none;
 }
+/* A soft band behind the floating pills: page color fading to clear, with a
+   light blur, so scrolled text never reads through between them. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -24px 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--color-bg) 35%, color-mix(in oklab, var(--color-bg) 70%, transparent) 70%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
 .site-header__inner {
   max-width: var(--site-max);
   margin: 0 auto;
@@ -294,10 +314,33 @@ a:focus-visible, button:focus-visible {
   justify-self: center;
   padding: var(--space-1);
 }
+.site-nav { position: relative; }
 .site-nav__list {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 2px;
 }
+/* js/motion.js adds this pill and moves it to the hovered or focused link;
+   without JS the active link carries its own fill. */
+.site-nav__indicator {
+  position: absolute;
+  left: 0;
+  width: var(--w, 0);
+  transform: translateX(var(--x, 0));
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  view-transition-name: nav-active;
+}
+.site-nav__indicator.is-ready {
+  transition: transform 180ms var(--ease-out), width 180ms var(--ease-out);
+}
+.site-nav.has-indicator .site-nav__link[aria-current="page"] {
+  background: transparent;
+  color: var(--color-text-muted);
+  view-transition-name: none;
+}
+.site-nav.has-indicator .site-nav__link.is-on { color: var(--color-bg); }
 .site-nav__link {
   display: inline-flex;
   align-items: center;
@@ -404,7 +447,7 @@ main { display: block; }
   font-size: clamp(3rem, 1.5rem + 5vw, 6rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-5);
   animation: hero-name-in 480ms var(--ease-out) both;
 }
 @keyframes hero-name-in {
@@ -415,8 +458,57 @@ main { display: block; }
   font-size: 1.1875rem;
   line-height: 1.55;
   max-width: 44ch;
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-4);
   text-wrap: pretty;
+}
+.hero__intro {
+  max-width: 58ch;
+  margin: 0 0 var(--space-6);
+  text-wrap: pretty;
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
+  margin: 0 0 var(--space-6);
+}
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+}
+.hero__status {
+  font-weight: 600;
+  margin: 0 0 var(--space-1);
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: background-color var(--hover-duration) var(--ease-out), transform var(--hover-duration) var(--ease-out);
+}
+.button--primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+.button:active { transform: scale(var(--press-scale)); }
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: 10px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--hover-duration) var(--ease-out), color var(--hover-duration) var(--ease-out);
 }
 .hero__meta {
   font-family: var(--font-mono);
@@ -552,32 +644,37 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   background: var(--color-bg);
-  transition: border-color var(--duration-fast) var(--ease-out), transform 160ms var(--ease-out);
+  transition: border-color var(--hover-duration) var(--ease-out), transform 160ms var(--ease-out);
 }
 .card__link:active { transform: scale(var(--press-scale)); }
+/* The frame clips the panel, so its hover scale never spills past the card. */
+.card__frame {
+  flex: 1;
+  display: flex;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
 .card__panel {
   container-type: inline-size;
   flex: 1;
+  transition: transform var(--hover-duration) var(--ease-out), background-color var(--hover-duration) var(--ease-out);
   display: grid;
   place-items: center;
   min-height: 160px;
   padding: var(--space-5) var(--space-4);
-  border-radius: var(--radius-panel);
   background: var(--color-surface);
-  overflow: hidden;
-  transition: background-color var(--duration-fast) var(--ease-out);
 }
 /* Card panels pick one of three drawings by their own width:
    stacked (narrow) < 400px <= two rows (snake) < 560px <= one row (wide). */
 .card__panel .diagram__svg { display: none; width: 100%; height: auto; }
 .card__panel .diagram__svg--narrow { display: block; max-width: 340px; }
 @container (min-width: 400px) {
-  .card__panel .diagram__svg--snake { display: block; max-width: 500px; }
+  .card__panel .diagram__svg--snake { display: block; max-width: 540px; }
   .card__panel--nosnake .diagram__svg--wide { display: block; }
   .card__panel .diagram__svg--narrow { display: none; }
 }
 @container (min-width: 560px) {
-  .card__panel .diagram__svg--wide { display: block; max-width: 640px; }
+  .card__panel .diagram__svg--wide { display: block; max-width: 700px; }
   .card__panel .diagram__svg--snake { display: none; }
 }
 .card__body {
@@ -594,6 +691,11 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
   font-weight: 600;
   line-height: 1.2;
   text-wrap: balance;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--hover-duration) var(--ease-out);
 }
 .card__meta {
   display: block;
@@ -606,7 +708,8 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
 .card__body .arrow-icon { margin-top: 0.45em; }
 
 /* Research panels hold the same motif until the reproduction charts exist. */
-.card-grid--three .card__panel { flex: none; aspect-ratio: 16 / 10; min-height: 0; }
+.card-grid--three .card__frame { flex: none; }
+.card-grid--three .card__panel { aspect-ratio: 16 / 10; min-height: 0; }
 .motif { width: min(100%, 360px); height: auto; }
 .motif__line { stroke: var(--color-border); stroke-width: 2; stroke-dasharray: 7 6; fill: none; }
 .motif__dot { fill: var(--color-text-muted); }
@@ -656,6 +759,11 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
   stroke-linejoin: round;
 }
 .dg-joint { fill: var(--color-text-muted); }
+.card__link .dg-node rect,
+.card__link .dg-link,
+.card__link .dg-head {
+  transition: fill var(--hover-duration) var(--ease-out), stroke var(--hover-duration) var(--ease-out);
+}
 
 /* Draw-in, once, the first time a diagram scrolls into view (js/motion.js
    adds .is-drawn). Only with JS and with motion allowed; otherwise the
@@ -878,23 +986,68 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
 }
 
 /* ==========================================================================
-   Hover: only on devices that can hover, so taps never latch a state
+   Hover system. One timing (--hover-duration, ease-out) for everything.
+   Hover lives behind (hover: hover) and (pointer: fine) so taps never latch;
+   each hover has a matching :focus-visible state for keyboard users.
+   Colour changes run everywhere; movement (scale, lift, nudge, sequence)
+   only when motion is allowed.
    ========================================================================== */
+
+/* Colour: focus-visible (any device) */
+.ink-link:focus-visible { background-size: 100% 1.5px; color: var(--color-accent); }
+.text-link:focus-visible { color: var(--color-accent); text-decoration-color: var(--color-accent); }
+.button--primary:focus-visible { background-color: color-mix(in oklab, var(--color-accent) 80%, var(--color-text)); }
+.card__link:focus-visible { border-color: var(--color-accent); }
+.card__link:focus-visible .card__title { text-decoration-color: var(--color-accent); }
+.card__link:focus-visible .arrow-icon { color: var(--color-accent); }
+.card__link:focus-visible .dg-node:not(.dg-node--key) rect {
+  stroke: var(--color-accent);
+  fill: color-mix(in oklab, var(--color-accent) 14%, var(--color-bg));
+}
+.card__link:focus-visible .dg-link,
+.card__link:focus-visible .dg-head { stroke: var(--color-accent); }
+
+/* Colour: hover */
 @media (hover: hover) and (pointer: fine) {
-  .ink-link:hover {
-    background-size: 100% 1.5px;
-    color: var(--color-accent);
-  }
-  .teaser-link:hover .arrow-icon { transform: translateX(4px); }
+  .ink-link:hover { background-size: 100% 1.5px; color: var(--color-accent); }
+  .text-link:hover { color: var(--color-accent); text-decoration-color: var(--color-accent); }
+  .button--primary:hover { background-color: color-mix(in oklab, var(--color-accent) 80%, var(--color-text)); }
   .site-nav__link:not([aria-current="page"]):hover { color: var(--color-text); }
   .theme-toggle:hover { color: var(--color-text); }
-  .card__link:hover { border-color: var(--color-text-muted); }
-  .card__link:hover .card__panel { background-color: color-mix(in oklab, var(--color-surface), var(--color-text) 5%); }
-  .card__link:hover .arrow-icon { transform: translateX(4px); color: var(--color-accent); }
-  .contact-icon-link:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+  .card__link:hover { border-color: var(--color-accent); }
+  .card__link:hover .card__title { text-decoration-color: var(--color-accent); }
+  .card__link:hover .arrow-icon { color: var(--color-accent); }
+  .card__link:hover .dg-node:not(.dg-node--key) rect {
+    stroke: var(--color-accent);
+    fill: color-mix(in oklab, var(--color-accent) 14%, var(--color-bg));
   }
+  .card__link:hover .dg-link,
+  .card__link:hover .dg-head { stroke: var(--color-accent); }
+  .contact-icon-link:hover { color: var(--color-accent); border-color: var(--color-accent); }
+}
+
+/* Movement: focus-visible and hover, motion allowed only */
+@media (prefers-reduced-motion: no-preference) {
+  .teaser-link:focus-visible .arrow-icon,
+  .text-link:focus-visible .arrow-icon,
+  .card__link:focus-visible .arrow-icon { transform: translateX(4px); }
+  .button--primary:focus-visible { transform: translateY(-1px); }
+  .card__link:focus-visible .card__panel { transform: scale(1.03); }
+  /* The signature: nodes light up one after another along the arrows.
+     The delay applies only on the way in, so leaving clears at once. */
+  .card__link:focus-visible .dg-node rect { transition-delay: calc(var(--i, 0) * var(--hover-stagger)); }
+  .card__link:focus-visible .dg-link,
+  .card__link:focus-visible .dg-head { transition-delay: calc(2 * var(--hover-stagger)); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .teaser-link:hover .arrow-icon,
+  .text-link:hover .arrow-icon,
+  .card__link:hover .arrow-icon { transform: translateX(4px); }
+  .button--primary:hover { transform: translateY(-1px); }
+  .card__link:hover .card__panel { transform: scale(1.03); }
+  .card__link:hover .dg-node rect { transition-delay: calc(var(--i, 0) * var(--hover-stagger)); }
+  .card__link:hover .dg-link,
+  .card__link:hover .dg-head { transition-delay: calc(2 * var(--hover-stagger)); }
 }
 
 /* ==========================================================================
@@ -962,9 +1115,11 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
     grid-column: 1 / span 7;
     grid-row: 1;
   }
+  /* Five columns wide and centred against the (taller) text column. */
   .hero__portrait {
-    grid-column: 9 / -1;
+    grid-column: 8 / -1;
     grid-row: 1;
+    align-self: center;
     width: auto;
   }
   /* Its own row: the plot never draws across the photo at any width. */

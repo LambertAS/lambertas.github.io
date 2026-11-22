@@ -53,4 +53,52 @@
       window.addEventListener('resize', setHeaderHeight);
     }
   }
+
+  // Nav: one filled pill that sits on the current page's link, slides to the
+  // hovered or keyboard-focused link, and returns when the pointer or focus
+  // leaves. With reduced motion it stays put (links change colour only).
+  var nav = document.querySelector('.site-nav');
+  var active = nav && nav.querySelector('[aria-current="page"]');
+  if (nav && active) {
+    var links = Array.prototype.slice.call(nav.querySelectorAll('.site-nav__link'));
+    var indicator = document.createElement('span');
+    indicator.className = 'site-nav__indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    nav.insertBefore(indicator, nav.firstChild);
+    var current = active;
+    var place = function (link) {
+      current = link;
+      // Measure against the nav itself (the list is its own positioned box).
+      var n = nav.getBoundingClientRect(), r = link.getBoundingClientRect();
+      indicator.style.setProperty('--x', (r.left - n.left - nav.clientLeft) + 'px');
+      indicator.style.setProperty('--w', r.width + 'px');
+      indicator.style.top = (r.top - n.top - nav.clientTop) + 'px';
+      indicator.style.height = r.height + 'px';
+      links.forEach(function (l) { l.classList.toggle('is-on', l === link); });
+    };
+    place(active);
+    nav.classList.add('has-indicator');
+    // Fonts can change link widths after first paint: re-measure, then allow sliding.
+    var settle = function () {
+      place(current);
+      requestAnimationFrame(function () { indicator.classList.add('is-ready'); });
+    };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle); else settle();
+    window.addEventListener('resize', function () { place(current); });
+
+    var motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (motionOK) {
+      if (canHover) {
+        links.forEach(function (l) { l.addEventListener('pointerenter', function () { place(l); }); });
+        nav.addEventListener('pointerleave', function () { place(active); });
+      }
+      links.forEach(function (l) {
+        l.addEventListener('focus', function () { if (l.matches(':focus-visible')) place(l); });
+      });
+      nav.addEventListener('focusout', function (evt) {
+        if (!nav.contains(evt.relatedTarget)) place(active);
+      });
+    }
+  }
 })();
