@@ -61,7 +61,8 @@
     // compete for attention at the same instant.
     var fieldStart = 0.35;
 
-    if (line) tl.to(line, { strokeDashoffset: 0, duration: 0.7, ease: 'power1.out' }, fieldStart);
+    // Once drawn, hand the line back to its dashed CSS stroke.
+    if (line) tl.to(line, { strokeDashoffset: 0, duration: 0.7, ease: 'power1.out', onComplete: function () { gsap.set(line, { clearProps: 'strokeDasharray,strokeDashoffset' }); } }, fieldStart);
 
     dots.forEach(function (dot, i) {
       if (dot === outlier) return;
@@ -111,12 +112,13 @@
       var crosshairX = svg.querySelector('.cal-crosshair--x');
       var crosshairY = svg.querySelector('.cal-crosshair--y');
 
+      // Map the pointer into the SVG's own coordinates (the viewBox is
+      // cropped to the band the dots occupy, so it doesn't start at 0).
+      var vb = svg.viewBox.baseVal;
       var updateMouse = function (evt) {
         var rect = svg.getBoundingClientRect();
-        var scaleX = 1000 / rect.width;
-        var scaleY = 420 / rect.height;
-        mouse.x = (evt.clientX - rect.left) * scaleX;
-        mouse.y = (evt.clientY - rect.top) * scaleY;
+        mouse.x = vb.x + (evt.clientX - rect.left) * (vb.width / rect.width);
+        mouse.y = vb.y + (evt.clientY - rect.top) * (vb.height / rect.height);
         mouse.active = true;
 
         if (crosshairX) {

@@ -20,12 +20,13 @@
     var stored = localStorage.getItem('theme');
     var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.classList.add('js');
   } catch (e) {}
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <noscript><style>[data-reveal]{opacity:1;transform:none;}</style></noscript>
 </head>
@@ -35,16 +36,16 @@
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="site-mark" href="index.html">Lambert A.S.</a>
-    <nav class="site-nav" aria-label="Primary">
+    <a class="site-mark pill-surface" href="index.html">Lambert A.S.</a>
+    <nav class="site-nav pill-surface" aria-label="Primary">
       <ol class="site-nav__list">
-        <li><a href="index.html" class="site-nav__link" data-magnetic>Home</a></li>
-        <li><a href="work.html" class="site-nav__link" data-magnetic>Work</a></li>
-        <li><a href="research.html" class="site-nav__link" aria-current="page" data-magnetic>Research</a></li>
-        <li><a href="about.html" class="site-nav__link" data-magnetic>About</a></li>
+        <li><a href="index.html" class="site-nav__link">Home</a></li>
+        <li><a href="work.html" class="site-nav__link">Work</a></li>
+        <li><a href="research.html" class="site-nav__link" aria-current="page">Research</a></li>
+        <li><a href="about.html" class="site-nav__link">About</a></li>
       </ol>
     </nav>
-    <button type="button" class="theme-toggle" data-theme-toggle data-magnetic aria-pressed="false">
+    <button type="button" class="theme-toggle pill-surface" data-theme-toggle aria-pressed="false">
       <span class="theme-toggle__icons">
         <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
           <circle cx="8" cy="8" r="3.4"/>
@@ -54,7 +55,7 @@
           <path d="M13.8 9.7A6 6 0 1 1 6.3 2.2a5 5 0 0 0 7.5 7.5Z"/>
         </svg>
       </span>
-      <span data-theme-label>Light</span>
+      <span>Dark</span>
     </button>
   </div>
 </header>
@@ -81,6 +82,7 @@
         <div class="entry__content" data-reveal style="--i:0">
           <h2 class="entry__title" style="view-transition-name: entry-stroke-smote">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
           <p class="entry__meta">Presented August 2026 in Bandung. <a class="ink-link" href="https://doi.org/10.1109/ICISS71466.2026.11715456" target="_blank" rel="noopener">DOI: 10.1109/ICISS71466.2026.11715456</a></p>
+          <div class="chart-slot" aria-hidden="true"><svg class="motif" viewBox="0 0 360 120"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></div>
           <div class="prose">
             <p>Stroke prevalence in this dataset was 4.87% across 5,110 records. At that ratio a model that predicts &ldquo;no stroke&rdquo; for every patient scores about 95% accuracy and is completely useless, which is the practical problem the paper addresses.</p>
             <p>I compared three resampling regimes across logistic regression, SVM with an RBF kernel, and XGBoost, holding preprocessing and tuning fixed so the comparison isolated the resampling choice. Ranked on PR-AUC and recall rather than accuracy, then checked the result held up under cross-validation, SHAP, and calibration curves.</p>
@@ -98,6 +100,7 @@
         <div class="entry__content" data-reveal style="--i:1">
           <h2 class="entry__title" style="view-transition-name: entry-jellyfish-feature-selection">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
           <p class="entry__meta"><a class="ink-link" href="https://doi.org/10.1109/iCAST68191.2025.11300257" target="_blank" rel="noopener">DOI: 10.1109/iCAST68191.2025.11300257</a></p>
+          <div class="chart-slot" aria-hidden="true"><svg class="motif" viewBox="0 0 360 120"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></div>
           <div class="prose">
             <p>I implemented the algorithm from scratch and benchmarked it as a feature selector against a no-selection baseline across five classifiers on 918 records.</p>
             <p>Implementing it rather than importing it was the point. Metaheuristics are easy to describe and easy to get subtly wrong, and writing it out surfaced parameter choices the original description left implicit.</p>
@@ -114,6 +117,7 @@
         <div class="entry__content" data-reveal style="--i:2">
           <h2 class="entry__title" style="view-transition-name: entry-coffee-elevation">Analysing the Relationship Between Coffee Quality and Farm Elevation</h2>
           <p class="entry__meta">2(2):100-109, May 2023. <a class="ink-link" href="https://doi.org/10.55606/jupti.v2i2.1752" target="_blank" rel="noopener">DOI: 10.55606/jupti.v2i2.1752</a></p>
+          <div class="chart-slot" aria-hidden="true"><svg class="motif" viewBox="0 0 360 120"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></div>
           <div class="prose">
             <p>An exploratory data analysis in Python on coffee quality data from Kaggle, testing whether the elevation a crop is grown at relates to its assessed quality. Higher farms produced better-rated coffee across the countries in the dataset, confirming a relationship already established in coffee agronomy rather than finding a new one.</p>
           </div>
@@ -124,7 +128,7 @@
   </div>
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer band">
   <div class="site-footer__frame">
     <div class="site-footer__inner">
       <div>
@@ -132,19 +136,19 @@
         <p class="site-footer__note">Jakarta, Indonesia</p>
       </div>
       <ul class="site-footer__links">
-        <li><a class="contact-icon-link" href="mailto:lambertaditama@gmail.com" aria-label="Email lambertaditama@gmail.com" data-magnetic>
+        <li><a class="contact-icon-link" href="mailto:lambertaditama@gmail.com" aria-label="Email lambertaditama@gmail.com">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.2"/><path d="M2 4.2l6 4.8 6-4.8"/></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener" aria-label="LinkedIn: linkedin.com/in/lambert-aditama-soehardjianto" data-magnetic>
+        <li><a class="contact-icon-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener" aria-label="LinkedIn: linkedin.com/in/lambert-aditama-soehardjianto">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="3"/><circle cx="5.1" cy="5.1" r="0.9" fill="currentColor" stroke="none"/><path d="M5.1 7.4v4.1"/><path d="M8.3 11.5V7.6M8.3 9.2c0-1 .8-1.6 1.7-1.6s1.6.6 1.6 1.6v2.3"/></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener" aria-label="ResearchGate: researchgate.net/profile/Lambert-Aditama-Soehardjianto" data-magnetic>
+        <li><a class="contact-icon-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener" aria-label="ResearchGate: researchgate.net/profile/Lambert-Aditama-Soehardjianto">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="8" cy="8" r="6.3"/><text x="8" y="10.4" text-anchor="middle">RG</text></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="https://github.com/LambertAS" target="_blank" rel="noopener" aria-label="GitHub: github.com/LambertAS" data-magnetic>
+        <li><a class="contact-icon-link" href="https://github.com/LambertAS" target="_blank" rel="noopener" aria-label="GitHub: github.com/LambertAS">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="currentColor" stroke="none" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="/Lambert_Aditama_Soehardjianto_CV.pdf" download aria-label="Download CV (PDF)" data-magnetic>
+        <li><a class="contact-icon-link" href="/Lambert_Aditama_Soehardjianto_CV.pdf" download aria-label="Download CV (PDF)">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5V14.5H4V1.5Z"/><path d="M9.5 1.5V4.5H12.5"/><path d="M6 8h4M6 10.5h4M6 6.5h2"/></svg>
         </a></li>
       </ul>

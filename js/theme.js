@@ -3,12 +3,9 @@
   var toggle = document.querySelector('[data-theme-toggle]');
   if (!toggle) return;
 
-  var label = toggle.querySelector('[data-theme-label]');
-
+  // The button's name stays "Dark"; aria-pressed alone carries whether dark mode is on.
   var render = function () {
-    var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    toggle.setAttribute('aria-pressed', current === 'dark' ? 'true' : 'false');
-    if (label) label.textContent = current === 'dark' ? 'Dark' : 'Light';
+    toggle.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
   };
 
   var applyTheme = function (next) {
@@ -22,7 +19,13 @@
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!document.startViewTransition || reduceMotion) {
+      // Swap in a single frame so color transitions don't all fire at once.
+      root.classList.add('theme-instant');
       applyTheme(next);
+      window.getComputedStyle(root).color;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { root.classList.remove('theme-instant'); });
+      });
       return;
     }
 

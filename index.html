@@ -20,12 +20,13 @@
     var stored = localStorage.getItem('theme');
     var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.classList.add('js');
   } catch (e) {}
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <noscript><style>[data-reveal]{opacity:1;transform:none;}</style></noscript>
 </head>
@@ -35,16 +36,16 @@
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="site-mark" href="index.html">Lambert A.S.</a>
-    <nav class="site-nav" aria-label="Primary">
+    <a class="site-mark pill-surface" href="index.html">Lambert A.S.</a>
+    <nav class="site-nav pill-surface" aria-label="Primary">
       <ol class="site-nav__list">
-        <li><a href="index.html" class="site-nav__link" aria-current="page" data-magnetic>Home</a></li>
-        <li><a href="work.html" class="site-nav__link" data-magnetic>Work</a></li>
-        <li><a href="research.html" class="site-nav__link" data-magnetic>Research</a></li>
-        <li><a href="about.html" class="site-nav__link" data-magnetic>About</a></li>
+        <li><a href="index.html" class="site-nav__link" aria-current="page">Home</a></li>
+        <li><a href="work.html" class="site-nav__link">Work</a></li>
+        <li><a href="research.html" class="site-nav__link">Research</a></li>
+        <li><a href="about.html" class="site-nav__link">About</a></li>
       </ol>
     </nav>
-    <button type="button" class="theme-toggle" data-theme-toggle data-magnetic aria-pressed="false">
+    <button type="button" class="theme-toggle pill-surface" data-theme-toggle aria-pressed="false">
       <span class="theme-toggle__icons">
         <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
           <circle cx="8" cy="8" r="3.4"/>
@@ -54,19 +55,24 @@
           <path d="M13.8 9.7A6 6 0 1 1 6.3 2.2a5 5 0 0 0 7.5 7.5Z"/>
         </svg>
       </span>
-      <span data-theme-label>Light</span>
+      <span>Dark</span>
     </button>
   </div>
 </header>
 
 <main id="main">
 
-  <header class="hero container">
-    <h1 class="hero__name">Lambert Aditama Soehardjianto</h1>
-    <p class="hero__role">Data and business analyst. I work between the people who have the question and the systems that hold the answer.</p>
-    <p class="hero__meta"><span class="status-dot" aria-hidden="true"></span>Jakarta, Indonesia. Indonesian, English, Mandarin.</p>
+  <header class="hero">
+    <div class="hero__text">
+      <h1 class="hero__name">Lambert Aditama Soehardjianto</h1>
+      <p class="hero__role">Data and business analyst. I work between the people who have the question and the systems that hold the answer.</p>
+      <p class="hero__meta"><span class="status-dot" aria-hidden="true"></span>Jakarta, Indonesia. Indonesian, English, Mandarin.</p>
+    </div>
+    <div class="hero__portrait">
+      <img src="img/portrait.webp" srcset="img/portrait-sm.webp 400w, img/portrait.webp 640w" sizes="(min-width: 760px) 30vw, 72vw" width="640" height="800" alt="Lambert Aditama Soehardjianto" fetchpriority="high">
+    </div>
     <div class="hero__calibration">
-      <svg class="hero__calibration-svg" viewBox="0 0 1000 420" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <svg class="hero__calibration-svg" viewBox="0 190 1000 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <line class="cal-line" x1="0" y1="210" x2="1000" y2="210"></line>
         <circle class="cal-dot" cx="13" cy="210" r="4.5" style="--sx:31;--sy:-52"></circle>
         <circle class="cal-dot" cx="40" cy="207" r="4.5" style="--sx:62;--sy:3"></circle>
@@ -105,7 +111,7 @@
         <circle class="cal-dot" cx="769" cy="231" r="4.5" style="--sx:21;--sy:3"></circle>
         <circle class="cal-dot" cx="788" cy="231" r="4.5" style="--sx:-18;--sy:-61"></circle>
         <circle class="cal-dot" cx="803" cy="233" r="4.5" style="--sx:59;--sy:50"></circle>
-        <circle class="cal-dot cal-dot--outlier" cx="829" cy="340" r="6.5" style="--sx:-17;--sy:-45"></circle>
+        <circle class="cal-dot cal-dot--outlier" cx="829" cy="284" r="6.5" style="--sx:-17;--sy:-45"></circle>
         <circle class="cal-dot" cx="848" cy="243" r="4.5" style="--sx:-9;--sy:-39"></circle>
         <circle class="cal-dot" cx="869" cy="236" r="4.5" style="--sx:30;--sy:-20"></circle>
         <circle class="cal-dot" cx="886" cy="245" r="4.5" style="--sx:5;--sy:-68"></circle>
@@ -113,14 +119,14 @@
         <circle class="cal-dot" cx="933" cy="253" r="4.5" style="--sx:-39;--sy:82"></circle>
         <circle class="cal-dot" cx="963" cy="269" r="4.5" style="--sx:-20;--sy:28"></circle>
         <circle class="cal-dot" cx="982" cy="268" r="4.5" style="--sx:-49;--sy:40"></circle>
-        <line class="cal-crosshair cal-crosshair--x" x1="0" y1="0" x2="0" y2="420"></line>
+        <line class="cal-crosshair cal-crosshair--x" x1="0" y1="190" x2="0" y2="300"></line>
         <line class="cal-crosshair cal-crosshair--y" x1="0" y1="0" x2="1000" y2="0"></line>
       </svg>
     </div>
   </header>
 
   <section class="section" id="intro" aria-labelledby="intro-heading">
-    <div class="container">
+    <div class="wide">
       <h2 id="intro-heading" class="section__heading">Intro</h2>
       <div class="section__body prose">
         <p>I finished a Computer Science and Statistics degree at BINUS this year and spent February to October 2026 as a data analyst intern in HR information systems at PT Lion Super Indo, a national supermarket chain.</p>
@@ -131,88 +137,104 @@
   </section>
 
   <section class="section" id="work-index" aria-labelledby="work-index-heading">
-    <div class="container">
+    <div class="wide">
       <h2 id="work-index-heading" class="section__heading">Selected work</h2>
       <div class="section__body">
-        <ol class="index-list">
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#pulse-survey-pipeline" data-reveal style="--i:0">
-              <span class="index-list__num">01</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-pulse-survey-pipeline">Employee pulse survey analytics pipeline</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Python, pandas, python-pptx</span>
+        <ol class="card-grid">
+          <li class="card card--wide" data-reveal style="--i:0">
+            <a class="card__link" href="work.html#pulse-survey-pipeline">
+              <span class="card__panel card__panel--nosnake"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 134" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="9.5" width="106" height="36" rx="8"/><text x="55" y="31.5">Raw export</text></g><g class="dg-node dg-node--key" style="--i:1"><rect x="124" y="2" width="106" height="51" rx="8"/><text x="177" y="24">Org-unit</text><text x="177" y="39">mapping</text></g><g class="dg-node" style="--i:2"><rect x="246" y="2" width="106" height="51" rx="8"/><text x="299" y="24">Stratified</text><text x="299" y="39">sampling</text></g><g class="dg-node" style="--i:3"><rect x="368" y="2" width="106" height="51" rx="8"/><text x="421" y="24">Integrity</text><text x="421" y="39">check</text></g><g class="dg-node" style="--i:4"><rect x="490" y="2" width="106" height="51" rx="8"/><text x="543" y="24">One report</text><text x="543" y="39">per unit</text></g><path class="dg-link" pathLength="1" d="M108 27.5H123"/><path class="dg-head" d="M118 23.5L124 27.5L118 31.5"/><path class="dg-link" pathLength="1" d="M230 27.5H245"/><path class="dg-head" d="M240 23.5L246 27.5L240 31.5"/><path class="dg-link" pathLength="1" d="M352 27.5H367"/><path class="dg-head" d="M362 23.5L368 27.5L362 31.5"/><path class="dg-link" pathLength="1" d="M474 27.5H489"/><path class="dg-head" d="M484 23.5L490 27.5L484 31.5"/><g class="dg-node" style="--i:5"><rect x="124" y="88.5" width="106" height="36" rx="8"/><text x="177" y="110.5">Open text</text></g><g class="dg-node" style="--i:6"><rect x="246" y="81" width="106" height="51" rx="8"/><text x="299" y="103">Whole-word</text><text x="299" y="118">themes</text></g><path class="dg-link" pathLength="1" d="M230 106.5H245"/><path class="dg-head" d="M240 102.5L246 106.5L240 110.5"/><path class="dg-link" pathLength="1" d="M55 45.5V106.5H123"/><path class="dg-head" d="M118 102.5L124 106.5L118 110.5"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 382" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">Raw export</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node dg-node--key" style="--i:1"><rect x="2" y="60" width="296" height="36" rx="8"/><text x="150" y="82">Org-unit mapping</text></g><path class="dg-link" pathLength="1" d="M150 96V117"/><path class="dg-head" d="M146 112L150 118L154 112"/><g class="dg-node" style="--i:2"><rect x="2" y="118" width="296" height="36" rx="8"/><text x="150" y="140">Stratified sampling</text></g><path class="dg-link" pathLength="1" d="M150 154V175"/><path class="dg-head" d="M146 170L150 176L154 170"/><g class="dg-node" style="--i:3"><rect x="2" y="176" width="296" height="36" rx="8"/><text x="150" y="198">Integrity check</text></g><path class="dg-link" pathLength="1" d="M150 212V233"/><path class="dg-head" d="M146 228L150 234L154 228"/><g class="dg-node" style="--i:4"><rect x="2" y="234" width="296" height="36" rx="8"/><text x="150" y="256">One report per unit</text></g><g class="dg-node" style="--i:5"><rect x="26" y="286" width="272" height="36" rx="8"/><text x="162" y="308">Open text</text></g><path class="dg-link" pathLength="1" d="M162 322V343"/><path class="dg-head" d="M158 338L162 344L166 338"/><g class="dg-node" style="--i:6"><rect x="26" y="344" width="272" height="36" rx="8"/><text x="162" y="366">Whole-word themes</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-pulse-survey-pipeline">Employee pulse survey analytics pipeline</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Python, pandas, python-pptx</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#data-quality-remediation" data-reveal style="--i:1">
-              <span class="index-list__num">02</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-data-quality-remediation">Data quality remediation</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Python, Excel, Power Query</span>
+          <li class="card" data-reveal style="--i:1">
+            <a class="card__link" href="work.html#data-quality-remediation">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 55" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="9.5" width="137" height="36" rx="8"/><text x="70.5" y="31.5">Rows misaligned</text></g><g class="dg-node" style="--i:1"><rect x="155" y="2" width="137" height="51" rx="8"/><text x="223.5" y="24">Trace column</text><text x="223.5" y="39">order</text></g><g class="dg-node dg-node--key" style="--i:2"><rect x="308" y="2" width="137" height="51" rx="8"/><text x="376.5" y="24">Root cause:</text><text x="376.5" y="39">partial sort</text></g><g class="dg-node" style="--i:3"><rect x="461" y="2" width="137" height="51" rx="8"/><text x="529.5" y="24">Prevention</text><text x="529.5" y="39">procedure</text></g><path class="dg-link" pathLength="1" d="M139 27.5H154"/><path class="dg-head" d="M149 23.5L155 27.5L149 31.5"/><path class="dg-link" pathLength="1" d="M292 27.5H307"/><path class="dg-head" d="M302 23.5L308 27.5L302 31.5"/><path class="dg-link" pathLength="1" d="M445 27.5H460"/><path class="dg-head" d="M455 23.5L461 27.5L455 31.5"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 106" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="219" height="36" rx="8"/><text x="111.5" y="24">Rows misaligned</text></g><g class="dg-node" style="--i:1"><rect x="239" y="2" width="219" height="36" rx="8"/><text x="348.5" y="24">Trace column order</text></g><path class="dg-link" pathLength="1" d="M221 20H238"/><path class="dg-head" d="M233 16L239 20L233 24"/><g class="dg-node dg-node--key" style="--i:2"><rect x="2" y="68" width="219" height="36" rx="8"/><text x="111.5" y="90">Root cause: partial sort</text></g><g class="dg-node" style="--i:3"><rect x="239" y="68" width="219" height="36" rx="8"/><text x="348.5" y="90">Prevention procedure</text></g><path class="dg-link" pathLength="1" d="M221 86H238"/><path class="dg-head" d="M233 82L239 86L233 90"/><path class="dg-link" pathLength="1" d="M348.5 38V53H111.5V67"/><path class="dg-head" d="M107.5 62L111.5 68L115.5 62"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 214" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">Rows misaligned</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node" style="--i:1"><rect x="2" y="60" width="296" height="36" rx="8"/><text x="150" y="82">Trace column order</text></g><path class="dg-link" pathLength="1" d="M150 96V117"/><path class="dg-head" d="M146 112L150 118L154 112"/><g class="dg-node dg-node--key" style="--i:2"><rect x="2" y="118" width="296" height="36" rx="8"/><text x="150" y="140">Root cause: partial sort</text></g><path class="dg-link" pathLength="1" d="M150 154V175"/><path class="dg-head" d="M146 170L150 176L154 170"/><g class="dg-node" style="--i:3"><rect x="2" y="176" width="296" height="36" rx="8"/><text x="150" y="198">Prevention procedure</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-data-quality-remediation">Data quality remediation</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Python, Excel, Power Query</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#store-internship-scoring" data-reveal style="--i:2">
-              <span class="index-list__num">03</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-store-internship-scoring">Store internship scoring tracker and reminders</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Google Sheets, Apps Script, Process mapping</span>
+          <li class="card" data-reveal style="--i:2">
+            <a class="card__link" href="work.html#store-internship-scoring">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 70" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="106" height="66" rx="8"/><text x="55" y="24">Google Form +</text><text x="55" y="39">HR system</text><text x="55" y="54">export</text></g><g class="dg-node dg-node--key" style="--i:1"><rect x="124" y="9.5" width="106" height="51" rx="8"/><text x="177" y="31.5">Live Sheets</text><text x="177" y="46.5">formulas</text></g><g class="dg-node" style="--i:2"><rect x="246" y="2" width="106" height="66" rx="8"/><text x="299" y="24">Completion</text><text x="299" y="39">rate per</text><text x="299" y="54">store</text></g><g class="dg-node" style="--i:3"><rect x="368" y="9.5" width="106" height="51" rx="8"/><text x="421" y="31.5">Apps Script</text><text x="421" y="46.5">reminder</text></g><g class="dg-node" style="--i:4"><rect x="490" y="9.5" width="106" height="51" rx="8"/><text x="543" y="31.5">One email per</text><text x="543" y="46.5">store</text></g><path class="dg-link" pathLength="1" d="M108 35H123"/><path class="dg-head" d="M118 31L124 35L118 39"/><path class="dg-link" pathLength="1" d="M230 35H245"/><path class="dg-head" d="M240 31L246 35L240 39"/><path class="dg-link" pathLength="1" d="M352 35H367"/><path class="dg-head" d="M362 31L368 35L362 39"/><path class="dg-link" pathLength="1" d="M474 35H489"/><path class="dg-head" d="M484 31L490 35L484 39"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 136" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="140" height="51" rx="8"/><text x="72" y="24">Google Form + HR</text><text x="72" y="39">system export</text></g><g class="dg-node dg-node--key" style="--i:1"><rect x="160" y="2" width="140" height="51" rx="8"/><text x="230" y="24">Live Sheets</text><text x="230" y="39">formulas</text></g><g class="dg-node" style="--i:2"><rect x="318" y="2" width="140" height="51" rx="8"/><text x="388" y="24">Completion rate</text><text x="388" y="39">per store</text></g><path class="dg-link" pathLength="1" d="M142 27.5H159"/><path class="dg-head" d="M154 23.5L160 27.5L154 31.5"/><path class="dg-link" pathLength="1" d="M300 27.5H317"/><path class="dg-head" d="M312 23.5L318 27.5L312 31.5"/><g class="dg-node" style="--i:3"><rect x="2" y="83" width="140" height="51" rx="8"/><text x="72" y="105">Apps Script</text><text x="72" y="120">reminder</text></g><g class="dg-node" style="--i:4"><rect x="160" y="83" width="140" height="51" rx="8"/><text x="230" y="105">One email per</text><text x="230" y="120">store</text></g><path class="dg-link" pathLength="1" d="M142 108.5H159"/><path class="dg-head" d="M154 104.5L160 108.5L154 112.5"/><path class="dg-link" pathLength="1" d="M388 53V68H72V82"/><path class="dg-head" d="M68 77L72 83L76 77"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 272" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">Google Form + HR system export</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node dg-node--key" style="--i:1"><rect x="2" y="60" width="296" height="36" rx="8"/><text x="150" y="82">Live Sheets formulas</text></g><path class="dg-link" pathLength="1" d="M150 96V117"/><path class="dg-head" d="M146 112L150 118L154 112"/><g class="dg-node" style="--i:2"><rect x="2" y="118" width="296" height="36" rx="8"/><text x="150" y="140">Completion rate per store</text></g><path class="dg-link" pathLength="1" d="M150 154V175"/><path class="dg-head" d="M146 170L150 176L154 170"/><g class="dg-node" style="--i:3"><rect x="2" y="176" width="296" height="36" rx="8"/><text x="150" y="198">Apps Script reminder</text></g><path class="dg-link" pathLength="1" d="M150 212V233"/><path class="dg-head" d="M146 228L150 234L154 228"/><g class="dg-node" style="--i:4"><rect x="2" y="234" width="296" height="36" rx="8"/><text x="150" y="256">One email per store</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-store-internship-scoring">Store internship scoring tracker and reminders</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Google Sheets, Apps Script, Process mapping</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#sla-dashboard" data-reveal style="--i:3">
-              <span class="index-list__num">04</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-sla-dashboard">HR service ticket SLA dashboard</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Power BI, Power Query, DAX</span>
+          <li class="card" data-reveal style="--i:3">
+            <a class="card__link" href="work.html#sla-dashboard">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 85" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="24.5" width="106" height="36" rx="8"/><text x="55" y="46.5">Ticket export</text></g><g class="dg-node" style="--i:1"><rect x="124" y="2" width="106" height="81" rx="8"/><text x="177" y="24">State logic:</text><text x="177" y="39">open / not</text><text x="177" y="54">accepted /</text><text x="177" y="69">closed</text></g><g class="dg-node dg-node--key" style="--i:2"><rect x="246" y="2" width="106" height="81" rx="8"/><text x="299" y="24">Lookup table:</text><text x="299" y="39">category ×</text><text x="299" y="54">sub-category</text><text x="299" y="69">→ target</text></g><g class="dg-node" style="--i:3"><rect x="368" y="17" width="106" height="51" rx="8"/><text x="421" y="39">Power BI</text><text x="421" y="54">measures</text></g><g class="dg-node" style="--i:4"><rect x="490" y="17" width="106" height="51" rx="8"/><text x="543" y="39">Filters and</text><text x="543" y="54">charts</text></g><path class="dg-link" pathLength="1" d="M108 42.5H123"/><path class="dg-head" d="M118 38.5L124 42.5L118 46.5"/><path class="dg-link" pathLength="1" d="M230 42.5H245"/><path class="dg-head" d="M240 38.5L246 42.5L240 46.5"/><path class="dg-link" pathLength="1" d="M352 42.5H367"/><path class="dg-head" d="M362 38.5L368 42.5L362 46.5"/><path class="dg-link" pathLength="1" d="M474 42.5H489"/><path class="dg-head" d="M484 38.5L490 42.5L484 46.5"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 166" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="24.5" width="140" height="36" rx="8"/><text x="72" y="46.5">Ticket export</text></g><g class="dg-node" style="--i:1"><rect x="160" y="9.5" width="140" height="66" rx="8"/><text x="230" y="31.5">State logic: open</text><text x="230" y="46.5">/ not accepted /</text><text x="230" y="61.5">closed</text></g><g class="dg-node dg-node--key" style="--i:2"><rect x="318" y="2" width="140" height="81" rx="8"/><text x="388" y="24">Lookup table:</text><text x="388" y="39">category ×</text><text x="388" y="54">sub-category →</text><text x="388" y="69">target</text></g><path class="dg-link" pathLength="1" d="M142 42.5H159"/><path class="dg-head" d="M154 38.5L160 42.5L154 46.5"/><path class="dg-link" pathLength="1" d="M300 42.5H317"/><path class="dg-head" d="M312 38.5L318 42.5L312 46.5"/><g class="dg-node" style="--i:3"><rect x="2" y="120.5" width="140" height="36" rx="8"/><text x="72" y="142.5">Power BI measures</text></g><g class="dg-node" style="--i:4"><rect x="160" y="113" width="140" height="51" rx="8"/><text x="230" y="135">Filters and</text><text x="230" y="150">charts</text></g><path class="dg-link" pathLength="1" d="M142 138.5H159"/><path class="dg-head" d="M154 134.5L160 138.5L154 142.5"/><path class="dg-link" pathLength="1" d="M388 83V98H72V119.5"/><path class="dg-head" d="M68 114.5L72 120.5L76 114.5"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 302" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">Ticket export</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node" style="--i:1"><rect x="2" y="60" width="296" height="51" rx="8"/><text x="150" y="82">State logic: open / not accepted /</text><text x="150" y="97">closed</text></g><path class="dg-link" pathLength="1" d="M150 111V132"/><path class="dg-head" d="M146 127L150 133L154 127"/><g class="dg-node dg-node--key" style="--i:2"><rect x="2" y="133" width="296" height="51" rx="8"/><text x="150" y="155">Lookup table: category × sub-category →</text><text x="150" y="170">target</text></g><path class="dg-link" pathLength="1" d="M150 184V205"/><path class="dg-head" d="M146 200L150 206L154 200"/><g class="dg-node" style="--i:3"><rect x="2" y="206" width="296" height="36" rx="8"/><text x="150" y="228">Power BI measures</text></g><path class="dg-link" pathLength="1" d="M150 242V263"/><path class="dg-head" d="M146 258L150 264L154 258"/><g class="dg-node" style="--i:4"><rect x="2" y="264" width="296" height="36" rx="8"/><text x="150" y="286">Filters and charts</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-sla-dashboard">HR service ticket SLA dashboard</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Power BI, Power Query, DAX</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#pms-prototypes" data-reveal style="--i:4">
-              <span class="index-list__num">05</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-pms-prototypes">Performance Management System dashboard prototypes</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Figma, Wireframing, Prototyping</span>
+          <li class="card" data-reveal style="--i:4">
+            <a class="card__link" href="work.html#pms-prototypes">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 147" aria-hidden="true"><g class="dg-node dg-node--key" style="--i:0"><rect x="2" y="55.5" width="290" height="36" rx="8"/><text x="147" y="77.5">One system</text></g><g class="dg-node" style="--i:1"><rect x="308" y="2" width="290" height="36" rx="8"/><text x="453" y="24">Associate</text></g><g class="dg-node" style="--i:2"><rect x="308" y="48" width="290" height="36" rx="8"/><text x="453" y="70">People Leader</text></g><g class="dg-node" style="--i:3"><rect x="308" y="94" width="290" height="51" rx="8"/><text x="453" y="116">Admin</text><text class="dg-sub" x="453" y="131">deadline countdown</text></g><path class="dg-link" pathLength="1" d="M292 73.5H300V20H307"/><path class="dg-head" d="M302 16L308 20L302 24"/><path class="dg-link" pathLength="1" d="M292 73.5H300V66H307"/><path class="dg-head" d="M302 62L308 66L302 70"/><path class="dg-link" pathLength="1" d="M292 73.5H300V119.5H307"/><path class="dg-head" d="M302 115.5L308 119.5L302 123.5"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 147" aria-hidden="true"><g class="dg-node dg-node--key" style="--i:0"><rect x="2" y="55.5" width="220" height="36" rx="8"/><text x="112" y="77.5">One system</text></g><g class="dg-node" style="--i:1"><rect x="238" y="2" width="220" height="36" rx="8"/><text x="348" y="24">Associate</text></g><g class="dg-node" style="--i:2"><rect x="238" y="48" width="220" height="36" rx="8"/><text x="348" y="70">People Leader</text></g><g class="dg-node" style="--i:3"><rect x="238" y="94" width="220" height="51" rx="8"/><text x="348" y="116">Admin</text><text class="dg-sub" x="348" y="131">deadline countdown</text></g><path class="dg-link" pathLength="1" d="M222 73.5H230V20H237"/><path class="dg-head" d="M232 16L238 20L232 24"/><path class="dg-link" pathLength="1" d="M222 73.5H230V66H237"/><path class="dg-head" d="M232 62L238 66L232 70"/><path class="dg-link" pathLength="1" d="M222 73.5H230V119.5H237"/><path class="dg-head" d="M232 115.5L238 119.5L232 123.5"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 193" aria-hidden="true"><g class="dg-node dg-node--key" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">One system</text></g><path class="dg-link" pathLength="1" d="M18 38V78H25"/><path class="dg-head" d="M20 74L26 78L20 82"/><g class="dg-node" style="--i:1"><rect x="26" y="60" width="272" height="36" rx="8"/><text x="162" y="82">Associate</text></g><path class="dg-link" pathLength="1" d="M18 38V124H25"/><path class="dg-head" d="M20 120L26 124L20 128"/><g class="dg-node" style="--i:2"><rect x="26" y="106" width="272" height="36" rx="8"/><text x="162" y="128">People Leader</text></g><path class="dg-link" pathLength="1" d="M18 38V177.5H25"/><path class="dg-head" d="M20 173.5L26 177.5L20 181.5"/><g class="dg-node" style="--i:3"><rect x="26" y="152" width="272" height="51" rx="8"/><text x="162" y="174">Admin</text><text class="dg-sub" x="162" y="189">deadline countdown</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-pms-prototypes">Performance Management System dashboard prototypes</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Figma, Wireframing, Prototyping</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#hr-system-requirements" data-reveal style="--i:5">
-              <span class="index-list__num">06</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-hr-system-requirements">Requirements work on HR system upgrades</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Requirements analysis, BRD writing, Cost-benefit analysis</span>
+          <li class="card" data-reveal style="--i:5">
+            <a class="card__link" href="work.html#hr-system-requirements">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 55" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="9.5" width="106" height="36" rx="8"/><text x="55" y="31.5">HR need</text></g><g class="dg-node dg-node--key" style="--i:1"><rect x="124" y="2" width="106" height="51" rx="8"/><text x="177" y="24">Weekly HR-IT</text><text x="177" y="39">sessions</text></g><g class="dg-node" style="--i:2"><rect x="246" y="2" width="106" height="51" rx="8"/><text x="299" y="24">BRD in Bahasa</text><text x="299" y="39">Indonesia</text></g><g class="dg-node" style="--i:3"><rect x="368" y="9.5" width="106" height="36" rx="8"/><text x="421" y="31.5">Approved</text></g><g class="dg-node" style="--i:4"><rect x="490" y="9.5" width="106" height="36" rx="8"/><text x="543" y="31.5">Build</text></g><path class="dg-link" pathLength="1" d="M108 27.5H123"/><path class="dg-head" d="M118 23.5L124 27.5L118 31.5"/><path class="dg-link" pathLength="1" d="M230 27.5H245"/><path class="dg-head" d="M240 23.5L246 27.5L240 31.5"/><path class="dg-link" pathLength="1" d="M352 27.5H367"/><path class="dg-head" d="M362 23.5L368 27.5L362 31.5"/><path class="dg-link" pathLength="1" d="M474 27.5H489"/><path class="dg-head" d="M484 23.5L490 27.5L484 31.5"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 121" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="9.5" width="140" height="36" rx="8"/><text x="72" y="31.5">HR need</text></g><g class="dg-node dg-node--key" style="--i:1"><rect x="160" y="2" width="140" height="51" rx="8"/><text x="230" y="24">Weekly HR-IT</text><text x="230" y="39">sessions</text></g><g class="dg-node" style="--i:2"><rect x="318" y="2" width="140" height="51" rx="8"/><text x="388" y="24">BRD in Bahasa</text><text x="388" y="39">Indonesia</text></g><path class="dg-link" pathLength="1" d="M142 27.5H159"/><path class="dg-head" d="M154 23.5L160 27.5L154 31.5"/><path class="dg-link" pathLength="1" d="M300 27.5H317"/><path class="dg-head" d="M312 23.5L318 27.5L312 31.5"/><g class="dg-node" style="--i:3"><rect x="2" y="83" width="140" height="36" rx="8"/><text x="72" y="105">Approved</text></g><g class="dg-node" style="--i:4"><rect x="160" y="83" width="140" height="36" rx="8"/><text x="230" y="105">Build</text></g><path class="dg-link" pathLength="1" d="M142 101H159"/><path class="dg-head" d="M154 97L160 101L154 105"/><path class="dg-link" pathLength="1" d="M388 53V68H72V82"/><path class="dg-head" d="M68 77L72 83L76 77"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 272" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">HR need</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node dg-node--key" style="--i:1"><rect x="2" y="60" width="296" height="36" rx="8"/><text x="150" y="82">Weekly HR-IT sessions</text></g><path class="dg-link" pathLength="1" d="M150 96V117"/><path class="dg-head" d="M146 112L150 118L154 112"/><g class="dg-node" style="--i:2"><rect x="2" y="118" width="296" height="36" rx="8"/><text x="150" y="140">BRD in Bahasa Indonesia</text></g><path class="dg-link" pathLength="1" d="M150 154V175"/><path class="dg-head" d="M146 170L150 176L154 170"/><g class="dg-node" style="--i:3"><rect x="2" y="176" width="296" height="36" rx="8"/><text x="150" y="198">Approved</text></g><path class="dg-link" pathLength="1" d="M150 212V233"/><path class="dg-head" d="M146 228L150 234L154 228"/><g class="dg-node" style="--i:4"><rect x="2" y="234" width="296" height="36" rx="8"/><text x="150" y="256">Build</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-hr-system-requirements">Requirements work on HR system upgrades</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Requirements analysis, BRD writing, Cost-benefit analysis</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#uat-performance-appraisal" data-reveal style="--i:6">
-              <span class="index-list__num">07</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-uat-performance-appraisal">User acceptance testing, performance appraisal module</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Test design, Defect tracking, Documentation</span>
+          <li class="card" data-reveal style="--i:6">
+            <a class="card__link" href="work.html#uat-performance-appraisal">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 100" aria-hidden="true"><g class="dg-node dg-node--key" style="--i:0"><rect x="2" y="17" width="86" height="66" rx="8"/><text x="45" y="39">Scenarios</text><text x="45" y="54">written</text><text x="45" y="69">first</text></g><g class="dg-node" style="--i:1"><rect x="104" y="17" width="86" height="66" rx="8"/><text x="147" y="39">Phase 1:</text><text x="147" y="54">goal</text><text x="147" y="69">setting</text></g><g class="dg-node" style="--i:2"><rect x="206" y="2" width="86" height="96" rx="8"/><text x="249" y="24">Phase 2:</text><text x="249" y="39">supervisor</text><text x="249" y="54">views,</text><text x="249" y="69">PDP,</text><text x="249" y="84">mid-year</text></g><g class="dg-node" style="--i:3"><rect x="308" y="24.5" width="86" height="51" rx="8"/><text x="351" y="46.5">20 defects</text><text x="351" y="61.5">logged</text></g><g class="dg-node" style="--i:4"><rect x="410" y="24.5" width="86" height="51" rx="8"/><text x="453" y="46.5">Retest to</text><text x="453" y="61.5">closure</text></g><g class="dg-node" style="--i:5"><rect x="512" y="17" width="86" height="66" rx="8"/><text x="555" y="39">Launch +</text><text x="555" y="54">user</text><text x="555" y="69">manual</text></g><path class="dg-link" pathLength="1" d="M88 50H103"/><path class="dg-head" d="M98 46L104 50L98 54"/><path class="dg-link" pathLength="1" d="M190 50H205"/><path class="dg-head" d="M200 46L206 50L200 54"/><path class="dg-link" pathLength="1" d="M292 50H307"/><path class="dg-head" d="M302 46L308 50L302 54"/><path class="dg-link" pathLength="1" d="M394 50H409"/><path class="dg-head" d="M404 46L410 50L404 54"/><path class="dg-link" pathLength="1" d="M496 50H511"/><path class="dg-head" d="M506 46L512 50L506 54"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 151" aria-hidden="true"><g class="dg-node dg-node--key" style="--i:0"><rect x="2" y="9.5" width="140" height="51" rx="8"/><text x="72" y="31.5">Scenarios written</text><text x="72" y="46.5">first</text></g><g class="dg-node" style="--i:1"><rect x="160" y="9.5" width="140" height="51" rx="8"/><text x="230" y="31.5">Phase 1: goal</text><text x="230" y="46.5">setting</text></g><g class="dg-node" style="--i:2"><rect x="318" y="2" width="140" height="66" rx="8"/><text x="388" y="24">Phase 2:</text><text x="388" y="39">supervisor views,</text><text x="388" y="54">PDP, mid-year</text></g><path class="dg-link" pathLength="1" d="M142 35H159"/><path class="dg-head" d="M154 31L160 35L154 39"/><path class="dg-link" pathLength="1" d="M300 35H317"/><path class="dg-head" d="M312 31L318 35L312 39"/><g class="dg-node" style="--i:3"><rect x="2" y="105.5" width="140" height="36" rx="8"/><text x="72" y="127.5">20 defects logged</text></g><g class="dg-node" style="--i:4"><rect x="160" y="105.5" width="140" height="36" rx="8"/><text x="230" y="127.5">Retest to closure</text></g><g class="dg-node" style="--i:5"><rect x="318" y="98" width="140" height="51" rx="8"/><text x="388" y="120">Launch + user</text><text x="388" y="135">manual</text></g><path class="dg-link" pathLength="1" d="M142 123.5H159"/><path class="dg-head" d="M154 119.5L160 123.5L154 127.5"/><path class="dg-link" pathLength="1" d="M300 123.5H317"/><path class="dg-head" d="M312 119.5L318 123.5L312 127.5"/><path class="dg-link" pathLength="1" d="M388 68V83H72V104.5"/><path class="dg-head" d="M68 99.5L72 105.5L76 99.5"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 345" aria-hidden="true"><g class="dg-node dg-node--key" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">Scenarios written first</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node" style="--i:1"><rect x="2" y="60" width="296" height="36" rx="8"/><text x="150" y="82">Phase 1: goal setting</text></g><path class="dg-link" pathLength="1" d="M150 96V117"/><path class="dg-head" d="M146 112L150 118L154 112"/><g class="dg-node" style="--i:2"><rect x="2" y="118" width="296" height="51" rx="8"/><text x="150" y="140">Phase 2: supervisor views, PDP,</text><text x="150" y="155">mid-year</text></g><path class="dg-link" pathLength="1" d="M150 169V190"/><path class="dg-head" d="M146 185L150 191L154 185"/><g class="dg-node" style="--i:3"><rect x="2" y="191" width="296" height="36" rx="8"/><text x="150" y="213">20 defects logged</text></g><path class="dg-link" pathLength="1" d="M150 227V248"/><path class="dg-head" d="M146 243L150 249L154 243"/><g class="dg-node" style="--i:4"><rect x="2" y="249" width="296" height="36" rx="8"/><text x="150" y="271">Retest to closure</text></g><path class="dg-link" pathLength="1" d="M150 285V306"/><path class="dg-head" d="M146 301L150 307L154 301"/><g class="dg-node" style="--i:5"><rect x="2" y="307" width="296" height="36" rx="8"/><text x="150" y="329">Launch + user manual</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-uat-performance-appraisal">User acceptance testing, performance appraisal module</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Test design, Defect tracking, Documentation</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="work.html#batch-transcription" data-reveal style="--i:7">
-              <span class="index-list__num">08</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-batch-transcription">Batch transcription of Indonesian voice recordings</span>
-                <span class="index-list__meta">PT Lion Super Indo, 2026. Python, faster-whisper, Google Colab</span>
+          <li class="card card--wide" data-reveal style="--i:7">
+            <a class="card__link" href="work.html#batch-transcription">
+              <span class="card__panel"><svg class="diagram__svg diagram__svg--wide" viewBox="0 0 600 85" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="24.5" width="106" height="36" rx="8"/><text x="55" y="46.5">Google Drive</text></g><g class="dg-node" style="--i:1"><rect x="124" y="17" width="106" height="51" rx="8"/><text x="177" y="39">Silence</text><text x="177" y="54">filter</text></g><g class="dg-node dg-node--key" style="--i:2"><rect x="246" y="2" width="106" height="81" rx="8"/><text x="299" y="24">faster-</text><text x="299" y="39">whisper</text><text x="299" y="54">large-v3 on</text><text x="299" y="69">GPU</text></g><g class="dg-node" style="--i:3"><rect x="368" y="17" width="106" height="51" rx="8"/><text x="421" y="39">Skip finished</text><text x="421" y="54">files</text></g><g class="dg-node" style="--i:4"><rect x="490" y="17" width="106" height="51" rx="8"/><text x="543" y="39">One .txt per</text><text x="543" y="54">recording</text></g><path class="dg-link" pathLength="1" d="M108 42.5H123"/><path class="dg-head" d="M118 38.5L124 42.5L118 46.5"/><path class="dg-link" pathLength="1" d="M230 42.5H245"/><path class="dg-head" d="M240 38.5L246 42.5L240 46.5"/><path class="dg-link" pathLength="1" d="M352 42.5H367"/><path class="dg-head" d="M362 38.5L368 42.5L362 46.5"/><path class="dg-link" pathLength="1" d="M474 42.5H489"/><path class="dg-head" d="M484 38.5L490 42.5L484 46.5"/></svg><svg class="diagram__svg diagram__svg--snake" viewBox="0 0 460 136" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="9.5" width="140" height="36" rx="8"/><text x="72" y="31.5">Google Drive</text></g><g class="dg-node" style="--i:1"><rect x="160" y="9.5" width="140" height="36" rx="8"/><text x="230" y="31.5">Silence filter</text></g><g class="dg-node dg-node--key" style="--i:2"><rect x="318" y="2" width="140" height="51" rx="8"/><text x="388" y="24">faster-whisper</text><text x="388" y="39">large-v3 on GPU</text></g><path class="dg-link" pathLength="1" d="M142 27.5H159"/><path class="dg-head" d="M154 23.5L160 27.5L154 31.5"/><path class="dg-link" pathLength="1" d="M300 27.5H317"/><path class="dg-head" d="M312 23.5L318 27.5L312 31.5"/><g class="dg-node" style="--i:3"><rect x="2" y="83" width="140" height="51" rx="8"/><text x="72" y="105">Skip finished</text><text x="72" y="120">files</text></g><g class="dg-node" style="--i:4"><rect x="160" y="83" width="140" height="51" rx="8"/><text x="230" y="105">One .txt per</text><text x="230" y="120">recording</text></g><path class="dg-link" pathLength="1" d="M142 108.5H159"/><path class="dg-head" d="M154 104.5L160 108.5L154 112.5"/><path class="dg-link" pathLength="1" d="M388 53V68H72V82"/><path class="dg-head" d="M68 77L72 83L76 77"/></svg><svg class="diagram__svg diagram__svg--narrow" viewBox="0 0 300 272" aria-hidden="true"><g class="dg-node" style="--i:0"><rect x="2" y="2" width="296" height="36" rx="8"/><text x="150" y="24">Google Drive</text></g><path class="dg-link" pathLength="1" d="M150 38V59"/><path class="dg-head" d="M146 54L150 60L154 54"/><g class="dg-node" style="--i:1"><rect x="2" y="60" width="296" height="36" rx="8"/><text x="150" y="82">Silence filter</text></g><path class="dg-link" pathLength="1" d="M150 96V117"/><path class="dg-head" d="M146 112L150 118L154 112"/><g class="dg-node dg-node--key" style="--i:2"><rect x="2" y="118" width="296" height="36" rx="8"/><text x="150" y="140">faster-whisper large-v3 on GPU</text></g><path class="dg-link" pathLength="1" d="M150 154V175"/><path class="dg-head" d="M146 170L150 176L154 170"/><g class="dg-node" style="--i:3"><rect x="2" y="176" width="296" height="36" rx="8"/><text x="150" y="198">Skip finished files</text></g><path class="dg-link" pathLength="1" d="M150 212V233"/><path class="dg-head" d="M146 228L150 234L154 228"/><g class="dg-node" style="--i:4"><rect x="2" y="234" width="296" height="36" rx="8"/><text x="150" y="256">One .txt per recording</text></g></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-batch-transcription">Batch transcription of Indonesian voice recordings</span>
+                  <span class="card__meta">PT Lion Super Indo, 2026. Python, faster-whisper, Google Colab</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
         </ol>
@@ -220,39 +242,45 @@
     </div>
   </section>
 
-  <section class="section" id="research-index" aria-labelledby="research-index-heading">
-    <div class="container">
+  <section class="section band" id="research-index" aria-labelledby="research-index-heading">
+    <div class="wide">
       <h2 id="research-index-heading" class="section__heading">Research</h2>
       <div class="section__body">
-        <ol class="index-list">
-          <li class="index-list__item">
-            <a class="index-list__link" href="research.html#stroke-smote" data-reveal style="--i:0">
-              <span class="index-list__num">01</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-stroke-smote">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</span>
-                <span class="index-list__meta">First author. IEEE ICISS 2026</span>
+        <ol class="card-grid card-grid--three">
+          <li class="card" data-reveal style="--i:0">
+            <a class="card__link" href="research.html#stroke-smote">
+              <span class="card__panel"><svg class="motif" viewBox="0 0 360 120" aria-hidden="true"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-stroke-smote">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</span>
+                  <span class="card__meta">First author. IEEE ICISS 2026</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="research.html#jellyfish-feature-selection" data-reveal style="--i:1">
-              <span class="index-list__num">02</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-jellyfish-feature-selection">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</span>
-                <span class="index-list__meta">Second author. IEEE iCAST 2025</span>
+          <li class="card" data-reveal style="--i:1">
+            <a class="card__link" href="research.html#jellyfish-feature-selection">
+              <span class="card__panel"><svg class="motif" viewBox="0 0 360 120" aria-hidden="true"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-jellyfish-feature-selection">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</span>
+                  <span class="card__meta">Second author. IEEE iCAST 2025</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
-          <li class="index-list__item">
-            <a class="index-list__link" href="research.html#coffee-elevation" data-reveal style="--i:2">
-              <span class="index-list__num">03</span>
-              <span>
-                <span class="index-list__title" style="view-transition-name: entry-coffee-elevation">Analysing the Relationship Between Coffee Quality and Farm Elevation</span>
-                <span class="index-list__meta">Co-author. Jurnal Publikasi Teknik Informatika, 2023</span>
+          <li class="card" data-reveal style="--i:2">
+            <a class="card__link" href="research.html#coffee-elevation">
+              <span class="card__panel"><svg class="motif" viewBox="0 0 360 120" aria-hidden="true"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></span>
+              <span class="card__body">
+                <span>
+                  <span class="card__title" style="view-transition-name: entry-coffee-elevation">Analysing the Relationship Between Coffee Quality and Farm Elevation</span>
+                  <span class="card__meta">Co-author. Jurnal Publikasi Teknik Informatika, 2023</span>
+                </span>
+                <svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
               </span>
-              <svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg>
             </a>
           </li>
         </ol>
@@ -261,18 +289,18 @@
   </section>
 
   <section class="section" id="how-i-work-teaser" aria-labelledby="how-i-work-teaser-heading">
-    <div class="container">
+    <div class="wide">
       <h2 id="how-i-work-teaser-heading" class="section__heading">How I work</h2>
       <div class="section__body prose">
         <p><strong>I would rather know a number is wrong than have it look right.</strong> Most of the time spent on the pulse survey pipeline went into the mapping and validation steps, not the analysis. Analysis on data you have not interrogated produces confident nonsense.</p>
-        <p><a class="ink-link teaser-link" href="about.html#how-i-work">Read the rest of how I work<svg class="index-list__arrow" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a></p>
+        <p><a class="ink-link teaser-link" href="about.html#how-i-work">Read the rest of how I work<svg class="arrow-icon" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a></p>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer band">
   <div class="site-footer__frame">
     <div class="site-footer__inner">
       <div>
@@ -280,19 +308,19 @@
         <p class="site-footer__note">Jakarta, Indonesia</p>
       </div>
       <ul class="site-footer__links">
-        <li><a class="contact-icon-link" href="mailto:lambertaditama@gmail.com" aria-label="Email lambertaditama@gmail.com" data-magnetic>
+        <li><a class="contact-icon-link" href="mailto:lambertaditama@gmail.com" aria-label="Email lambertaditama@gmail.com">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.2"/><path d="M2 4.2l6 4.8 6-4.8"/></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener" aria-label="LinkedIn: linkedin.com/in/lambert-aditama-soehardjianto" data-magnetic>
+        <li><a class="contact-icon-link" href="https://linkedin.com/in/lambert-aditama-soehardjianto" target="_blank" rel="noopener" aria-label="LinkedIn: linkedin.com/in/lambert-aditama-soehardjianto">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="3"/><circle cx="5.1" cy="5.1" r="0.9" fill="currentColor" stroke="none"/><path d="M5.1 7.4v4.1"/><path d="M8.3 11.5V7.6M8.3 9.2c0-1 .8-1.6 1.7-1.6s1.6.6 1.6 1.6v2.3"/></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener" aria-label="ResearchGate: researchgate.net/profile/Lambert-Aditama-Soehardjianto" data-magnetic>
+        <li><a class="contact-icon-link" href="https://researchgate.net/profile/Lambert-Aditama-Soehardjianto" target="_blank" rel="noopener" aria-label="ResearchGate: researchgate.net/profile/Lambert-Aditama-Soehardjianto">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="8" cy="8" r="6.3"/><text x="8" y="10.4" text-anchor="middle">RG</text></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="https://github.com/LambertAS" target="_blank" rel="noopener" aria-label="GitHub: github.com/LambertAS" data-magnetic>
+        <li><a class="contact-icon-link" href="https://github.com/LambertAS" target="_blank" rel="noopener" aria-label="GitHub: github.com/LambertAS">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="currentColor" stroke="none" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a></li>
-        <li><a class="contact-icon-link" href="/Lambert_Aditama_Soehardjianto_CV.pdf" download aria-label="Download CV (PDF)" data-magnetic>
+        <li><a class="contact-icon-link" href="/Lambert_Aditama_Soehardjianto_CV.pdf" download aria-label="Download CV (PDF)">
           <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5V14.5H4V1.5Z"/><path d="M9.5 1.5V4.5H12.5"/><path d="M6 8h4M6 10.5h4M6 6.5h2"/></svg>
         </a></li>
       </ul>
