@@ -323,17 +323,18 @@ a:focus-visible, button:focus-visible {
 }
 /* js/motion.js adds this pill and moves it to the hovered or focused link;
    without JS the active link carries its own fill. */
+/* The pill spans the whole nav; a clip-path inset carves out the target
+   link, so sliding never animates a layout property. */
 .site-nav__indicator {
   position: absolute;
   left: 0;
-  width: var(--w, 0);
-  transform: translateX(var(--x, 0));
-  border-radius: var(--radius-pill);
+  right: 0;
   background: var(--color-accent);
+  clip-path: inset(0 var(--r, 100%) 0 var(--l, 0) round var(--radius-pill));
   view-transition-name: nav-active;
 }
 .site-nav__indicator.is-ready {
-  transition: transform 180ms var(--ease-out), width 180ms var(--ease-out);
+  transition: clip-path 180ms var(--ease-out);
 }
 .site-nav.has-indicator .site-nav__link[aria-current="page"] {
   background: transparent;

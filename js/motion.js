@@ -70,8 +70,9 @@
       current = link;
       // Measure against the nav itself (the list is its own positioned box).
       var n = nav.getBoundingClientRect(), r = link.getBoundingClientRect();
-      indicator.style.setProperty('--x', (r.left - n.left - nav.clientLeft) + 'px');
-      indicator.style.setProperty('--w', r.width + 'px');
+      var left = r.left - n.left - nav.clientLeft;
+      indicator.style.setProperty('--l', left + 'px');
+      indicator.style.setProperty('--r', (nav.clientWidth - left - r.width) + 'px');
       indicator.style.top = (r.top - n.top - nav.clientTop) + 'px';
       indicator.style.height = r.height + 'px';
       links.forEach(function (l) { l.classList.toggle('is-on', l === link); });
