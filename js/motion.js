@@ -31,7 +31,7 @@
             drawObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.4 });
+      }, { threshold: 0, rootMargin: '0px 0px -25% 0px' });
       diagrams.forEach(function (el) { drawObserver.observe(el); });
     } else {
       diagrams.forEach(function (el) { el.classList.add('is-drawn'); });
@@ -103,7 +103,7 @@
     }
   }
 
-  // One entrance per section: when a section is a fifth in view its heading
+  // One entrance per section: when a section's top passes 85% of the window its heading
   // wipes in and its cards follow (css/style.css). Once only.
   var enterEls = Array.prototype.slice.call(document.querySelectorAll('[data-enter]'));
   if (enterEls.length) {
@@ -115,7 +115,7 @@
             enterObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
       enterEls.forEach(function (el) { enterObserver.observe(el); });
     } else {
       enterEls.forEach(function (el) { el.classList.add('is-in'); });

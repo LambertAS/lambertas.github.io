@@ -50,7 +50,7 @@
   --color-text: #1B2430;
   --color-text-muted: #4A5866;
   --color-accent: #0F6B6B;
-  --color-outlier: #C2410C;
+  --color-outlier: #0F6B6B;
   --shadow-tint: oklch(0.25 0.03 240 / 0.3);
 
   /* Bands: Night Slate sections that alternate with Paper */
@@ -60,7 +60,7 @@
   --band-text: #E3E9ED;
   --band-muted: #9AA9B5;
   --band-accent: #4DB6AC;
-  --band-outlier: #F2804B;
+  --band-outlier: #4DB6AC;
   --band-rule: transparent;
 }
 
@@ -73,7 +73,7 @@
   --color-text: #E3E9ED;
   --color-text-muted: #9AA9B5;
   --color-accent: #4DB6AC;
-  --color-outlier: #F2804B;
+  --color-outlier: #4DB6AC;
   --shadow-tint: oklch(0 0 0 / 0.5);
   --image-outline: oklch(1 0 0 / 0.1);
   --band-bg: #1C2631;
@@ -90,7 +90,7 @@
     --color-text: #E3E9ED;
     --color-text-muted: #9AA9B5;
     --color-accent: #4DB6AC;
-    --color-outlier: #F2804B;
+    --color-outlier: #4DB6AC;
     --shadow-tint: oklch(0 0 0 / 0.5);
     --image-outline: oklch(1 0 0 / 0.1);
     --band-bg: #1C2631;
@@ -507,6 +507,19 @@ main { display: block; }
   color: var(--color-text);
   border-top: 1px solid var(--band-rule);
 }
+/* Light mode: sections in the middle of a page use a light tint, so the only
+   dark band is the footer at the bottom. Dark mode keeps its raised bands. */
+:root[data-theme="light"] .section.band {
+  --color-bg: #E6EBE9;
+  --color-surface: #DCE3E0;
+  --color-border: #C2CDC9;
+  --color-text: #1B2430;
+  --color-text-muted: #4A5866;
+  --color-accent: #0F6B6B;
+  --color-outlier: #0F6B6B;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
 
 /* ==========================================================================
    Hero (Home): name and portrait as one focal pair, standing on the
@@ -593,7 +606,7 @@ main { display: block; }
   font-size: 0.875rem;
   color: var(--color-text-muted);
 }
-/* Static marker beside the location: the same rust as the plot's flagged point. */
+/* Status marker: the same teal as the plot's flagged point. */
 .status-dot {
   display: inline-block;
   width: 6px;
