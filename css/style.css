@@ -114,6 +114,18 @@
 ::view-transition-new(root) {
   animation: view-in var(--duration-fast) var(--ease);
 }
+/* Card to entry: the clicked card's diagram panel and title grow into the
+   entry's diagram and heading (names are set only for that one pair). */
+::view-transition-group(entry-visual),
+::view-transition-group(entry-title) {
+  animation-duration: 380ms;
+  animation-timing-function: var(--ease);
+}
+::view-transition-old(entry-visual),
+::view-transition-new(entry-visual) {
+  height: 100%;
+  object-fit: cover;
+}
 @keyframes view-in {
   from { opacity: 0; transform: scale(0.98); }
   to { opacity: 1; transform: scale(1); }
@@ -160,6 +172,26 @@ body {
 }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+}
+/* A faint graph-paper grid fixed behind every page, so all sections read as
+   one sheet. Bands and cards are opaque and sit over it. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  --grid-line: color-mix(in oklab, var(--color-border) 30%, transparent);
+  --grid-major: color-mix(in oklab, var(--color-border) 55%, transparent);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 30%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 120% 90% at 50% 30%, #000 40%, transparent 100%);
 }
 img { max-width: 100%; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
@@ -408,6 +440,51 @@ main { display: block; }
   padding: 0 var(--gutter);
 }
 .frame { max-width: var(--frame-max); }
+.entry-index { display: none; }
+@media (min-width: 1360px) {
+  /* Index column beside rail + content. */
+  .frame--work { max-width: calc(var(--frame-max) + 200px + var(--space-8)); }
+  .work-layout {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    column-gap: var(--space-8);
+    align-items: start;
+  }
+  .page-head.frame--work .page-heading { margin-left: calc(200px + var(--space-8)); }
+  .page-head.frame--work .page-head__rule { margin-left: calc(200px + var(--space-8)); }
+  .entry-index {
+    display: block;
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-6));
+  }
+}
+.entry-index__list {
+  position: relative;
+  display: grid;
+  gap: 2px;
+}
+.entry-index__link {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+  transition: color var(--hover-duration) var(--ease-out);
+}
+.entry-index__link[aria-current="true"] { color: var(--color-text); }
+/* Same sliding language as the nav pill: one shape clipped to the current entry. */
+.entry-index__pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: var(--color-surface);
+  clip-path: inset(var(--t, 0) 0 var(--b, 100%) 0 round 10px);
+  transition: clip-path 260ms var(--ease-out);
+}
 .wide { max-width: var(--site-max); }
 .prose { max-width: var(--measure); }
 .prose p { margin: 0 0 var(--space-4); text-wrap: pretty; }
@@ -526,8 +603,39 @@ main { display: block; }
   background: var(--color-outlier);
   vertical-align: middle;
 }
+.hero__aside {
+  display: grid;
+  gap: var(--space-4);
+}
 .hero__portrait {
   width: min(72%, 340px);
+}
+/* At a glance: four facts a recruiter can scan in seconds. */
+.glance {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-bg);
+}
+.glance__row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+}
+.glance dt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.glance dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
 }
 .hero__portrait img {
   display: block;
@@ -1025,6 +1133,7 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
   .card__link:hover .dg-link,
   .card__link:hover .dg-head { stroke: var(--color-accent); }
   .contact-icon-link:hover { color: var(--color-accent); border-color: var(--color-accent); }
+  .entry-index__link:hover { color: var(--color-text); }
 }
 
 /* Movement: focus-visible and hover, motion allowed only */
@@ -1063,6 +1172,22 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-enter] .section__heading,
+  .js [data-enter] .page-heading {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 600ms var(--ease-out);
+  }
+  .js [data-enter].is-in .section__heading,
+  .js [data-enter].is-in .page-heading { clip-path: inset(0 0 0 0); }
+  /* Cards wait for their section, then follow the heading in order. */
+  .js [data-enter]:not(.is-in) [data-reveal] { opacity: 0; transform: translateY(8px); }
+  .js [data-enter].is-in [data-reveal] {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(180ms + var(--i, 0) * 40ms);
+  }
 }
 
 /* ==========================================================================
@@ -1115,14 +1240,15 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
   .hero__text {
     grid-column: 1 / span 7;
     grid-row: 1;
+    align-self: center;
   }
-  /* Five columns wide and centred against the (taller) text column. */
-  .hero__portrait {
+  /* Portrait and at-a-glance panel: five columns, centred against the text. */
+  .hero__aside {
     grid-column: 8 / -1;
     grid-row: 1;
     align-self: center;
-    width: auto;
   }
+  .hero__portrait { width: auto; }
   /* Its own row: the plot never draws across the photo at any width. */
   .hero__calibration {
     grid-column: 1 / -1;
@@ -1187,6 +1313,13 @@ main > .frame:last-child { padding-bottom: var(--space-9); }
   }
 
   .entry--railed { display: contents; }
+  /* Work and Research: each entry keeps a real box (subgrid), so anchor links
+     and the Work index can find it. About keeps display: contents. */
+  .rail-grid:not(.rail-grid--entries) > .entry--railed {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
   .entry--railed .rail { grid-column: 1; margin-bottom: 0; }
   .entry--railed .entry__content { grid-column: 2; }
   .entry--railed .rail,

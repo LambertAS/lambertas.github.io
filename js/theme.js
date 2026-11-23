@@ -35,9 +35,8 @@
     root.classList.add('theme-transition');
 
     var transition = document.startViewTransition(function () { applyTheme(next); });
-    transition.finished.finally(function () {
-      root.classList.remove('theme-transition');
-    });
+    var done = function () { root.classList.remove('theme-transition'); };
+    transition.finished.then(done, done);
   });
 
   render();

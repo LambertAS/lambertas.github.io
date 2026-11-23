@@ -102,4 +102,76 @@
       });
     }
   }
+
+  // One entrance per section: when a section is a fifth in view its heading
+  // wipes in and its cards follow (css/style.css). Once only.
+  var enterEls = Array.prototype.slice.call(document.querySelectorAll('[data-enter]'));
+  if (enterEls.length) {
+    if (hasIO) {
+      var enterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            enterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      enterEls.forEach(function (el) { enterObserver.observe(el); });
+    } else {
+      enterEls.forEach(function (el) { el.classList.add('is-in'); });
+    }
+  }
+
+  // Work index: the pill follows whichever entry is in the reading band.
+  var index = document.querySelector('.entry-index__list');
+  if (index && hasIO) {
+    var indexLinks = Array.prototype.slice.call(index.querySelectorAll('.entry-index__link'));
+    var pill = document.createElement('li');
+    pill.className = 'entry-index__pill';
+    pill.setAttribute('aria-hidden', 'true');
+    pill.setAttribute('role', 'presentation');
+    index.insertBefore(pill, index.firstChild);
+    var markEntry = function (id) {
+      indexLinks.forEach(function (link) {
+        var on = link.getAttribute('href') === '#' + id;
+        if (on) {
+          link.setAttribute('aria-current', 'true');
+          var top = link.offsetTop, h = link.offsetHeight;
+          pill.style.setProperty('--t', top + 'px');
+          pill.style.setProperty('--b', (index.clientHeight - top - h) + 'px');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) markEntry(entry.target.id); });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    indexLinks.forEach(function (link) {
+      var target = document.getElementById(link.getAttribute('href').slice(1));
+      if (target) spy.observe(target);
+    });
+    markEntry((location.hash || '#' + indexLinks[0].getAttribute('href').slice(1)).slice(1));
+  }
+
+  // Card to entry: name only the clicked card and its destination, so that
+  // one pair morphs and nothing else flies across the page.
+  var visualOf = function (el) { return el && (el.querySelector('.card__frame') || el.querySelector('.diagram') || el.querySelector('.chart-slot')); };
+  var titleOf = function (el) { return el && el.querySelector('.card__title, .entry__title'); };
+  var nameUp = function (el) {
+    var v = visualOf(el), t = titleOf(el);
+    if (v) v.style.viewTransitionName = 'entry-visual';
+    if (t) t.style.viewTransitionName = 'entry-title';
+    return function () { if (v) v.style.viewTransitionName = ''; if (t) t.style.viewTransitionName = ''; };
+  };
+  var clearSwap = null;
+  window.addEventListener('pageswap', function (evt) {
+    if (!evt.viewTransition || !evt.activation || !evt.activation.entry) return;
+    var hash = new URL(evt.activation.entry.url).hash;
+    if (!hash) return;
+    var card = document.querySelector('.card__link[href$="' + hash + '"]');
+    if (card) clearSwap = nameUp(card);
+  });
+  // Back/forward cache can restore this page with the names still set; clear them.
+  window.addEventListener('pageshow', function () { if (clearSwap) { clearSwap(); clearSwap = null; } });
 })();

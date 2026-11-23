@@ -28,6 +28,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="expect" href="#site-end" blocking="render">
+<script>
+// Card to entry: on arrival, land on the entry and name its diagram and title
+// so the clicked card morphs into them (the card side is named in js/motion.js).
+window.addEventListener('pagereveal', function (evt) {
+  if (!evt.viewTransition || !location.hash) return;
+  var entry = document.getElementById(location.hash.slice(1));
+  if (!entry || !entry.classList.contains('entry')) return;
+  entry.scrollIntoView({ block: 'start', behavior: 'instant' });
+  var content = entry.querySelector('[data-reveal]');
+  if (content) content.classList.add('is-visible');
+  var v = entry.querySelector('.diagram, .chart-slot'), t = entry.querySelector('.entry__title');
+  if (v) v.style.viewTransitionName = 'entry-visual';
+  if (t) t.style.viewTransitionName = 'entry-title';
+  var clear = function () {
+    if (v) v.style.viewTransitionName = '';
+    if (t) t.style.viewTransitionName = '';
+  };
+  // A cancelled transition rejects; clear the names either way.
+  evt.viewTransition.finished.then(clear, clear);
+});
+</script>
 <noscript><style>[data-reveal]{opacity:1;transform:none;}</style></noscript>
 </head>
 <body>
@@ -61,7 +83,7 @@
 </header>
 
 <main id="main">
-  <div class="frame page-head">
+  <div class="frame page-head" data-enter>
     <h1 class="page-heading">Research</h1>
     <div class="page-head__rule" aria-hidden="true">
       <span class="page-head__rule-dot" style="left:33%"></span>
@@ -80,7 +102,7 @@
           <p>First author</p>
         </div>
         <div class="entry__content" data-reveal style="--i:0">
-          <h2 class="entry__title" style="view-transition-name: entry-stroke-smote">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
+          <h2 class="entry__title">Learning from Imbalanced Stroke Data: SMOTE vs SMOTE-ENN</h2>
           <p class="entry__meta">Presented August 2026 in Bandung. <a class="ink-link" href="https://doi.org/10.1109/ICISS71466.2026.11715456" target="_blank" rel="noopener">DOI: 10.1109/ICISS71466.2026.11715456</a></p>
           <div class="chart-slot" aria-hidden="true"><svg class="motif" viewBox="0 0 360 120"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></div>
           <div class="prose">
@@ -98,7 +120,7 @@
           <p>Second author</p>
         </div>
         <div class="entry__content" data-reveal style="--i:1">
-          <h2 class="entry__title" style="view-transition-name: entry-jellyfish-feature-selection">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
+          <h2 class="entry__title">Evaluating the Jellyfish Optimization Algorithm for Feature Selection</h2>
           <p class="entry__meta"><a class="ink-link" href="https://doi.org/10.1109/iCAST68191.2025.11300257" target="_blank" rel="noopener">DOI: 10.1109/iCAST68191.2025.11300257</a></p>
           <div class="chart-slot" aria-hidden="true"><svg class="motif" viewBox="0 0 360 120"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></div>
           <div class="prose">
@@ -115,7 +137,7 @@
           <p>Co-author</p>
         </div>
         <div class="entry__content" data-reveal style="--i:2">
-          <h2 class="entry__title" style="view-transition-name: entry-coffee-elevation">Analysing the Relationship Between Coffee Quality and Farm Elevation</h2>
+          <h2 class="entry__title">Analysing the Relationship Between Coffee Quality and Farm Elevation</h2>
           <p class="entry__meta">2(2):100-109, May 2023. <a class="ink-link" href="https://doi.org/10.55606/jupti.v2i2.1752" target="_blank" rel="noopener">DOI: 10.55606/jupti.v2i2.1752</a></p>
           <div class="chart-slot" aria-hidden="true"><svg class="motif" viewBox="0 0 360 120"><path class="motif__line" d="M8 60H352"/><circle class="motif__dot" cx="40" cy="59" r="4"/><circle class="motif__dot" cx="82" cy="61" r="4"/><circle class="motif__dot" cx="124" cy="60" r="4"/><circle class="motif__dot" cx="166" cy="63" r="4"/><circle class="motif__dot" cx="208" cy="62" r="4"/><circle class="motif__dot" cx="250" cy="66" r="4"/><circle class="motif__dot motif__dot--flag" cx="278" cy="92" r="5.5"/><circle class="motif__dot" cx="306" cy="69" r="4"/></svg></div>
           <div class="prose">
@@ -128,7 +150,7 @@
   </div>
 </main>
 
-<footer class="site-footer band">
+<footer class="site-footer band" id="site-end">
   <div class="site-footer__frame">
     <div class="site-footer__inner">
       <div>
